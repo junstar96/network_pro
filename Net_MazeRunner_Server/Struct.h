@@ -21,6 +21,8 @@ struct Player {
 	float			fAngle;			//회전각도
 	float			DeltaAngle;		//조작에따른각도
 	//Position	Vector;	//보류
+
+	
 };
 
 //map
@@ -28,6 +30,9 @@ struct Maze
 {
 	int			iStatus;			//ENUM값으로 블럭의 속성을 나타냄
 	float		fEdge[EDGE_END];	//중앙값 +- 작업 진행...
+
+
+
 };
 // example
 // Maze MyMaze[B_SIZE][B_SIZE]
@@ -41,4 +46,6 @@ struct Maze
 
 struct ForPingPong {
 	Player PlayerList[PLAYERMAX];
+
+
 };

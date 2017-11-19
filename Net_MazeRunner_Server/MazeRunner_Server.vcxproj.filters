@@ -33,6 +33,12 @@
     <ClInclude Include="Define.h">
       <Filter>00.Header File Only</Filter>
     </ClInclude>
+    <ClInclude Include="update.h">
+      <Filter>00.Header File Only</Filter>
+    </ClInclude>
+    <ClInclude Include="timer.h">
+      <Filter>00.Header File Only</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MazeRunner_Server.cpp">
@@ -40,6 +46,12 @@
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>99.rarely use</Filter>
+    </ClCompile>
+    <ClCompile Include="update.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="timer.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
