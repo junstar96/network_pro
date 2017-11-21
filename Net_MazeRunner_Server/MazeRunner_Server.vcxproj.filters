@@ -39,6 +39,9 @@
     <ClInclude Include="timer.h">
       <Filter>00.Header File Only</Filter>
     </ClInclude>
+    <ClInclude Include="collision.h">
+      <Filter>00.Header File Only</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MazeRunner_Server.cpp">
@@ -51,6 +54,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="timer.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="collision.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
