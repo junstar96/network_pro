@@ -19,8 +19,17 @@ enum BlockType {
 	BLOCK_Blocked,	//나갈 수 없는 길
 };
 
+//나의 팀
 enum Team {
 	TEAM_Red,
 	TEAM_Blue,
 	TEAM_END
+};
+
+//게임오브젝트
+enum eGameObj {
+	OBJ_PLAYER,
+	OBJ_MAZE,
+	OBJ_GHOST,
+	OBJ_end
 };

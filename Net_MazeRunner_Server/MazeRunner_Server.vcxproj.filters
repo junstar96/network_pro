@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="소스 파일">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
     <Filter Include="리소스 파일">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
@@ -15,6 +11,31 @@
     </Filter>
     <Filter Include="00.Header File Only">
       <UniqueIdentifier>{cc6b5ad6-7227-4294-99bb-2489101db5f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Main">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="02. GameObject">
+      <UniqueIdentifier>{e9a365c8-ee3b-4005-9764-3c6523d2badb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\01.Player">
+      <UniqueIdentifier>{d7c62835-d07e-4bce-a8a3-6f6b35f65f16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\02.Maze">
+      <UniqueIdentifier>{fe67acdf-face-4b65-888e-fb3aa29253b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\03.Ghost">
+      <UniqueIdentifier>{5b001c25-faea-4450-8a3a-1a0fca78f2af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. forServer">
+      <UniqueIdentifier>{a54bd94e-8fe0-4fa5-b395-a54f7496994a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. forServer\02.SendTo">
+      <UniqueIdentifier>{65a1e974-cf27-4a7d-aa46-d8f428478fb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. forServer\01.RecvFrom">
+      <UniqueIdentifier>{caae2624-e0fd-46fd-9b6b-79f781251305}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -33,31 +54,55 @@
     <ClInclude Include="Define.h">
       <Filter>00.Header File Only</Filter>
     </ClInclude>
-    <ClInclude Include="update.h">
-      <Filter>00.Header File Only</Filter>
+    <ClInclude Include="CGameObject.h">
+      <Filter>02. GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="timer.h">
-      <Filter>00.Header File Only</Filter>
+    <ClInclude Include="CPlayer.h">
+      <Filter>02. GameObject\01.Player</Filter>
     </ClInclude>
-    <ClInclude Include="collision.h">
-      <Filter>00.Header File Only</Filter>
+    <ClInclude Include="CMaze.h">
+      <Filter>02. GameObject\02.Maze</Filter>
+    </ClInclude>
+    <ClInclude Include="CGhost.h">
+      <Filter>02. GameObject\03.Ghost</Filter>
+    </ClInclude>
+    <ClInclude Include="CRecvFrom.h">
+      <Filter>03. forServer\01.RecvFrom</Filter>
+    </ClInclude>
+    <ClInclude Include="CSendTo.h">
+      <Filter>03. forServer\02.SendTo</Filter>
+    </ClInclude>
+    <ClInclude Include="CForServer.h">
+      <Filter>03. forServer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MazeRunner_Server.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>01.Main</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>99.rarely use</Filter>
     </ClCompile>
-    <ClCompile Include="update.cpp">
-      <Filter>소스 파일</Filter>
+    <ClCompile Include="CGameObject.cpp">
+      <Filter>02. GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="timer.cpp">
-      <Filter>소스 파일</Filter>
+    <ClCompile Include="CPlayer.cpp">
+      <Filter>02. GameObject\01.Player</Filter>
     </ClCompile>
-    <ClCompile Include="collision.cpp">
-      <Filter>소스 파일</Filter>
+    <ClCompile Include="CMaze.cpp">
+      <Filter>02. GameObject\02.Maze</Filter>
+    </ClCompile>
+    <ClCompile Include="CGhost.cpp">
+      <Filter>02. GameObject\03.Ghost</Filter>
+    </ClCompile>
+    <ClCompile Include="CRecvFrom.cpp">
+      <Filter>03. forServer\01.RecvFrom</Filter>
+    </ClCompile>
+    <ClCompile Include="CSendTo.cpp">
+      <Filter>03. forServer\02.SendTo</Filter>
+    </ClCompile>
+    <ClCompile Include="CForServer.cpp">
+      <Filter>03. forServer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
