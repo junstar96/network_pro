@@ -1,0 +1,69 @@
+﻿  Time.cpp
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\shared\minwindef.h(127): warning C4005: 'CALLBACK': 매크로 재정의
+  c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\glut.h(33): note: 'CALLBACK'의 이전 정의를 참조하십시오.
+  stdafx.cpp
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\shared\minwindef.h(127): warning C4005: 'CALLBACK': 매크로 재정의
+  c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\glut.h(33): note: 'CALLBACK'의 이전 정의를 참조하십시오.
+  Resource.cpp
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\shared\minwindef.h(127): warning C4005: 'CALLBACK': 매크로 재정의
+  c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\glut.h(33): note: 'CALLBACK'의 이전 정의를 참조하십시오.
+  RenderScene.cpp
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\shared\minwindef.h(127): warning C4005: 'CALLBACK': 매크로 재정의
+  c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\glut.h(33): note: 'CALLBACK'의 이전 정의를 참조하십시오.
+  Main.cpp
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\shared\minwindef.h(127): warning C4005: 'CALLBACK': 매크로 재정의
+  c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\glut.h(33): note: 'CALLBACK'의 이전 정의를 참조하십시오.
+  Light.cpp
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\shared\minwindef.h(127): warning C4005: 'CALLBACK': 매크로 재정의
+  c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\glut.h(33): note: 'CALLBACK'의 이전 정의를 참조하십시오.
+  Letter.cpp
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\shared\minwindef.h(127): warning C4005: 'CALLBACK': 매크로 재정의
+  c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\glut.h(33): note: 'CALLBACK'의 이전 정의를 참조하십시오.
+  Input.cpp
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\shared\minwindef.h(127): warning C4005: 'CALLBACK': 매크로 재정의
+  c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\glut.h(33): note: 'CALLBACK'의 이전 정의를 참조하십시오.
+  Ghost.cpp
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\shared\minwindef.h(127): warning C4005: 'CALLBACK': 매크로 재정의
+  c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\glut.h(33): note: 'CALLBACK'의 이전 정의를 참조하십시오.
+  Collision.cpp
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\shared\minwindef.h(127): warning C4005: 'CALLBACK': 매크로 재정의
+  c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\glut.h(33): note: 'CALLBACK'의 이전 정의를 참조하십시오.
+  코드를 생성하고 있습니다...
+Ghost.obj : error LNK2019: glutSolidSphere 외부 기호(참조 위치: "public: void __cdecl Ghost::Render(void)" (?Render@Ghost@@QEAAXXZ) 함수)에서 확인하지 못했습니다.
+Light.obj : error LNK2001: glutSolidSphere 외부 기호를 확인할 수 없습니다.
+Resource.obj : error LNK2001: glutSolidSphere 외부 기호를 확인할 수 없습니다.
+Ghost.obj : error LNK2019: glutSolidCone 외부 기호(참조 위치: "public: void __cdecl Ghost::Render(void)" (?Render@Ghost@@QEAAXXZ) 함수)에서 확인하지 못했습니다.
+RenderScene.obj : error LNK2001: glutSolidCone 외부 기호를 확인할 수 없습니다.
+Resource.obj : error LNK2001: glutSolidCone 외부 기호를 확인할 수 없습니다.
+Input.obj : error LNK2019: glutPostRedisplay 외부 기호(참조 위치: "void __cdecl SpecialKeyboard(int,int,int)" (?SpecialKeyboard@@YAXHHH@Z) 함수)에서 확인하지 못했습니다.
+RenderScene.obj : error LNK2001: glutPostRedisplay 외부 기호를 확인할 수 없습니다.
+Time.obj : error LNK2001: glutPostRedisplay 외부 기호를 확인할 수 없습니다.
+Input.obj : error LNK2019: glutSetWindow 외부 기호(참조 위치: "void __cdecl SpecialKeyboard(int,int,int)" (?SpecialKeyboard@@YAXHHH@Z) 함수)에서 확인하지 못했습니다.
+Main.obj : error LNK2001: glutSetWindow 외부 기호를 확인할 수 없습니다.
+RenderScene.obj : error LNK2001: glutSetWindow 외부 기호를 확인할 수 없습니다.
+Input.obj : error LNK2019: glutKeyboardFunc 외부 기호(참조 위치: "void __cdecl init(void)" (?init@@YAXXZ) 함수)에서 확인하지 못했습니다.
+Input.obj : error LNK2019: glutSpecialFunc 외부 기호(참조 위치: "void __cdecl init(void)" (?init@@YAXXZ) 함수)에서 확인하지 못했습니다.
+Input.obj : error LNK2019: glutSpecialUpFunc 외부 기호(참조 위치: "void __cdecl init(void)" (?init@@YAXXZ) 함수)에서 확인하지 못했습니다.
+Input.obj : error LNK2019: glutIgnoreKeyRepeat 외부 기호(참조 위치: "void __cdecl init(void)" (?init@@YAXXZ) 함수)에서 확인하지 못했습니다.
+Letter.obj : error LNK2019: glutBitmapCharacter 외부 기호(참조 위치: "void __cdecl letter_Menu(void)" (?letter_Menu@@YAXXZ) 함수)에서 확인하지 못했습니다.
+Resource.obj : error LNK2001: glutBitmapCharacter 외부 기호를 확인할 수 없습니다.
+Main.obj : error LNK2019: glutInit 외부 기호(참조 위치: main 함수)에서 확인하지 못했습니다.
+Main.obj : error LNK2019: glutInitDisplayMode 외부 기호(참조 위치: main 함수)에서 확인하지 못했습니다.
+Main.obj : error LNK2019: glutInitWindowPosition 외부 기호(참조 위치: main 함수)에서 확인하지 못했습니다.
+Main.obj : error LNK2019: glutInitWindowSize 외부 기호(참조 위치: main 함수)에서 확인하지 못했습니다.
+Main.obj : error LNK2019: glutMainLoop 외부 기호(참조 위치: main 함수)에서 확인하지 못했습니다.
+Main.obj : error LNK2019: glutCreateWindow 외부 기호(참조 위치: main 함수)에서 확인하지 못했습니다.
+Main.obj : error LNK2019: glutCreateSubWindow 외부 기호(참조 위치: main 함수)에서 확인하지 못했습니다.
+Main.obj : error LNK2019: glutPositionWindow 외부 기호(참조 위치: "void __cdecl Reshape(int,int)" (?Reshape@@YAXHH@Z) 함수)에서 확인하지 못했습니다.
+Main.obj : error LNK2019: glutReshapeWindow 외부 기호(참조 위치: "void __cdecl Reshape(int,int)" (?Reshape@@YAXHH@Z) 함수)에서 확인하지 못했습니다.
+Main.obj : error LNK2019: glutDisplayFunc 외부 기호(참조 위치: main 함수)에서 확인하지 못했습니다.
+Main.obj : error LNK2019: glutReshapeFunc 외부 기호(참조 위치: main 함수)에서 확인하지 못했습니다.
+Main.obj : error LNK2019: glutIdleFunc 외부 기호(참조 위치: main 함수)에서 확인하지 못했습니다.
+Main.obj : error LNK2019: glutTimerFunc 외부 기호(참조 위치: main 함수)에서 확인하지 못했습니다.
+Time.obj : error LNK2001: glutTimerFunc 외부 기호를 확인할 수 없습니다.
+RenderScene.obj : error LNK2019: glutSwapBuffers 외부 기호(참조 위치: "void __cdecl RenderSceneW1(void)" (?RenderSceneW1@@YAXXZ) 함수)에서 확인하지 못했습니다.
+RenderScene.obj : error LNK2019: glutGet 외부 기호(참조 위치: "void __cdecl RenderSceneW1(void)" (?RenderSceneW1@@YAXXZ) 함수)에서 확인하지 못했습니다.
+RenderScene.obj : error LNK2019: glutSolidCube 외부 기호(참조 위치: "void __cdecl board_maker(void)" (?board_maker@@YAXXZ) 함수)에서 확인하지 못했습니다.
+Resource.obj : error LNK2001: glutSolidCube 외부 기호를 확인할 수 없습니다.
+C:\Program Files (x86)\Windows Kits\10\lib\10.0.15063.0\um\x64\glut32.lib : warning LNK4272: 'x86' 라이브러리 컴퓨터 종류가 'x64' 대상 컴퓨터 종류와 충돌합니다.
+C:\Users\이준성\Desktop\구루구루 이미지 폴더\프로그램 파일 관리\network_pro\network_pro\Net_MazeRunner_OOP\x64\Debug\Net_MazeRunner.exe : fatal error LNK1120: 25개의 확인할 수 없는 외부 참조입니다.
