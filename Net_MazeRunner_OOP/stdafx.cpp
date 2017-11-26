@@ -21,6 +21,7 @@ bool Bool_Shading = true;
 bool Bool_Depth = true;
 bool Bool_Culling = true;
 bool Bool_PlayGame = false;
+bool Bool_Network = false;
 
 ///////////////////////////////////////////////////////////
 //                     Lookat
@@ -61,10 +62,6 @@ int cutoff = 10;
 
 int MazeBoard[B_SIZE][B_SIZE] = { 0 };
 
-int cnt = 0;
-int change = 0;
-int input = 0;
-
 ///////////////////////////////////////////////////////////
 //                 Camera & Window                       //
 ///////////////////////////////////////////////////////////
@@ -74,10 +71,6 @@ float angle = 0.0f;
 
 //벡터
 float lx = 0.0f, lz = -1.0f, ly = 0.0f;
-
-//카메라
-float Camera_x, Camera_z, Camera_y; // 기본0,5,1.75
-float Camera_rot;
 
 // 이동 변수
 float deltaAngle = 0.0f;
@@ -108,6 +101,7 @@ int startingpoint = 0;
 point Collision_Maze[B_SIZE][B_SIZE];
 
 Ghost Ghosts[10];
+CPlayer player;
 
 //////////////////////////////////////////////////////////
 
@@ -119,33 +113,14 @@ int cageY = -65;
 void computePos(float deltaMove)
 {
 
-	Camera_x += deltaMove * lx * 0.1f;
-	Camera_z += deltaMove * lz * 0.1f;
+	player.Camera_x += deltaMove * lx * 0.1f;
+	player.Camera_z += deltaMove * lz * 0.1f;
 }
 
 void computeDir(float deltaAngle) {
 	angle += deltaAngle;
 	lx = sin(angle);
 	lz = -cos(angle);
-}
-
-// enum
-
-void SetStarting() {
-	switch (startingpoint) {
-	case 0:
-		Camera_x = 16.0f, Camera_z = 3.5f, Camera_y = 1.75f; 
-		break;
-	case 1:
-		Camera_x = -14.0f, Camera_z = 3.5f, Camera_y = 1.75f;
-		break;
-	case 2:
-		Camera_x = 0.5f, Camera_z = 19.0f, Camera_y = 1.75f; 
-		break;
-	case 3:
-		Camera_x = 0.5f, Camera_z = -11.0f, Camera_y = 1.75f;
-		break;
-	}
 }
 
 void LargeView()

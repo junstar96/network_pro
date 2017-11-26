@@ -54,7 +54,7 @@ void Draw_PlayerObj()
 {
 	glPushMatrix();
 	{
-		glTranslatef(0, 0.5, 0);
+		glTranslatef(0, 0.5, 3);
 		glColor3f(1, 8, 1);
 		glScalef(0.4, 0.75, 0.4);
 
@@ -291,20 +291,7 @@ void Draw_Cage()
 
 void startinit()
 {
-	switch (startingpoint) {
-	case 0:
-		Camera_x = 20.0f, Camera_z = 3.5f, Camera_y = 1.75f; // 기본0,5,1.75
-		break;
-	case 1:
-		Camera_x = -18.0f, Camera_z = 3.5f, Camera_y = 1.75f; // 기본0,5,1.75
-		break;
-	case 2:
-		Camera_x = 0.5f, Camera_z = 23.0f, Camera_y = 1.75f; // 기본0,5,1.75
-		break;
-	case 3:
-		Camera_x = 0.5f, Camera_z = -15.0f, Camera_y = 1.75f; // 기본0,5,1.75
-		break;
-	}
+	player.SetPosition();
 
 	Level_Minimap = 1;
 	speedup = 0;
@@ -427,7 +414,7 @@ GLubyte * LoadDIBitmap(const char *filename, BITMAPINFO **info)
 	return bits;
 }
 
-GLubyte * LoadDIBitmap(const char *filename, BITMAPINFO **info);
+//GLubyte * LoadDIBitmap(const char *filename, BITMAPINFO **info);
 
 
 ///////////////////////////

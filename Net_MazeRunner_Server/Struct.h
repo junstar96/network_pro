@@ -42,6 +42,7 @@ struct Ghost
 };
 
 //illuminate			30¹ø
+#pragma pack(1)
 struct ForPingPong {
 	Player	PlayerArray[PLAYERMAX];
 	Maze	MazeArray[B_SIZE][B_SIZE];

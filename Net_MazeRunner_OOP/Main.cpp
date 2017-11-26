@@ -3,6 +3,7 @@
 #include "Time.h"
 #include "Input.h"
 #include "RenderScene.h"
+#include "Network.h"
 
 void Reshape(int w1, int h1)
 {
@@ -30,6 +31,8 @@ void Reshape(int w1, int h1)
 	setProjection(w / 2 - border * 3 / 2, h / 2 - border * 3 / 2);
 }
 
+
+
 int main(int argc, char **argv) {
 
 	for (int i = 0; i < B_SIZE; i++)
@@ -43,8 +46,10 @@ int main(int argc, char **argv) {
 		}
 	} // 블럭 초기화
 	srand(time(NULL));
-	startingpoint = 1; //rand() % 3;
-	SetStarting();
+
+	player.SetPosition();
+
+
 
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
@@ -71,8 +76,6 @@ int main(int argc, char **argv) {
 	subWindow3 = glutCreateSubWindow(mainWindow, (w + border) / 2, (h + border) / 2, w / 2 - border * 3 / 2, h / 2 - border * 3 / 2);
 	glutDisplayFunc(RenderSceneW3);
 	init();
-
-	cout << "네트워크에 접속합니다" << endl;
 
 	glutMainLoop();
 

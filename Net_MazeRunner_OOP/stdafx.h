@@ -4,6 +4,8 @@
 //#include "resource.h"
 
 #include "Ghost.h"
+#include "Player.h"
+
 
 #include <iostream>
 #include <stdio.h>
@@ -45,6 +47,7 @@ extern bool Bool_Shading;
 extern bool Bool_Depth;
 extern bool cullingone;
 extern bool Bool_PlayGame;
+extern bool Bool_Network;
 
 ///////////////////////////////////////////////////////////
 //                     Lookat
@@ -84,13 +87,9 @@ extern int cutoff;
 ///////////////////////////////////////////////////////////
 
 extern Ghost Ghosts[10];
+extern CPlayer player;
 
 extern int MazeBoard[B_SIZE][B_SIZE];
-
-extern int cnt;
-extern int change;
-
-extern int input;
 
 ///////////////////////////////////////////////////////////
 //                 Camera & Window                       //
@@ -101,10 +100,6 @@ extern float angle;
 
 //벡터
 extern float lx, lz, ly;
-
-//카메라
-extern float Camera_x, Camera_z, Camera_y;
-extern float Camera_rot;
 
 // 이동 변수
 extern float deltaAngle;
@@ -157,10 +152,20 @@ enum ItemState {
 	KEY, SPEED, HP, MINIMAP, CUTOFF
 };
 
-void SetStarting();
-
 void LargeView();
 
 void TopView();
 
 void CameraView();
+
+
+struct Position {
+	float fX;
+	float fY;
+	float fZ;
+
+	Position() {}
+	Position(float X, float Y, float Z)		//간편 생성용 생성자
+		: fX(X), fY(Y), fZ(Z)
+	{}
+};

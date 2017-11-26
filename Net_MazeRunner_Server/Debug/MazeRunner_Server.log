@@ -1,7 +1,6 @@
 ﻿  stdafx.cpp
   MazeRunner_Server.cpp
-c:\users\이준성\desktop\구루구루 이미지 폴더\프로그램 파일 관리\network_pro\network_pro\net_mazerunner_server\mazerunner_server.cpp(16): warning C4101: 'buf' :참조되지 않은 지역 변수입니다.
-c:\users\이준성\desktop\구루구루 이미지 폴더\프로그램 파일 관리\network_pro\network_pro\net_mazerunner_server\mazerunner_server.cpp(106): warning C4101: 'buf' :참조되지 않은 지역 변수입니다.
+c:\users\이준성\desktop\구루구루 이미지 폴더\프로그램 파일 관리\network_pro\network_pro\net_mazerunner_server\mazerunner_server.cpp(42): warning C4101: 'buf' :참조되지 않은 지역 변수입니다.
   CSendTo.cpp
   CRecvFrom.cpp
   CPlayer.cpp

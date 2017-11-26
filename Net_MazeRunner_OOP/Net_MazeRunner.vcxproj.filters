@@ -13,69 +13,135 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="01.Main">
+      <UniqueIdentifier>{2215aa8a-a16a-4924-a49c-fadbc85d978a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject">
+      <UniqueIdentifier>{b60169fd-1b7e-4cdb-9b21-412cac364c7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.RenderScene">
+      <UniqueIdentifier>{f08f1b37-8d05-4ece-983f-c622c1ad82c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.Network">
+      <UniqueIdentifier>{1e33a12a-4725-45e6-9fc4-1d2584162ba3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\Ghost">
+      <UniqueIdentifier>{28a4a402-35af-483a-9d9a-8394253ff33e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\Player">
+      <UniqueIdentifier>{7745b146-ad42-4d92-a8dd-3e2d6e64cf3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.Time&amp;Input">
+      <UniqueIdentifier>{83ee7700-b1bb-4450-b21c-23dfb80fd6e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.RenderScene\Light">
+      <UniqueIdentifier>{aca5767e-0825-49b5-a9b2-d753f32c5cbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.RenderScene\Letter">
+      <UniqueIdentifier>{16a8ecb4-62f3-4c93-810f-99bf0dc200b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.Time&amp;Input\Input">
+      <UniqueIdentifier>{28dfe2e1-73f0-4458-b3ad-8ff43181a049}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.Time&amp;Input\Time">
+      <UniqueIdentifier>{8ba96dd2-f4c1-472f-b80d-a35cb0f4b577}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.Time&amp;Input\Collision">
+      <UniqueIdentifier>{e533807c-19f0-43af-86a2-2d8f2bf50ac2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="99.rarely use">
+      <UniqueIdentifier>{988b43fa-d1c0-4d59-acde-c7d4e83b9f10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="99.rarely use\Resource">
+      <UniqueIdentifier>{b526d8de-1bf5-4e13-b995-ef01e473a2f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="99.rarely use\stdafx">
+      <UniqueIdentifier>{e94cd09f-f3cb-4685-bca6-2c0f47c1a22f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.Network\Network">
+      <UniqueIdentifier>{a6e7fe33-cf94-4b7d-a2c5-9821892ed244}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Ghost.h">
+      <Filter>02.GameObject\Ghost</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>02.GameObject\Player</Filter>
+    </ClInclude>
     <ClInclude Include="Main.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>01.Main</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="stdafx.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Input.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Time.h">
-      <Filter>헤더 파일</Filter>
+    <ClInclude Include="GetNetwork.h">
+      <Filter>04.Network</Filter>
     </ClInclude>
     <ClInclude Include="RenderScene.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>03.RenderScene</Filter>
     </ClInclude>
     <ClInclude Include="Light.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Collision.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>03.RenderScene\Light</Filter>
     </ClInclude>
     <ClInclude Include="Letter.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>03.RenderScene\Letter</Filter>
     </ClInclude>
-    <ClInclude Include="Ghost.h">
-      <Filter>헤더 파일</Filter>
+    <ClInclude Include="Input.h">
+      <Filter>05.Time&amp;Input\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Time.h">
+      <Filter>05.Time&amp;Input\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>05.Time&amp;Input\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>99.rarely use\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>99.rarely use\stdafx</Filter>
+    </ClInclude>
+    <ClInclude Include="Network.h">
+      <Filter>04.Network\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="SetNetwork.h">
+      <Filter>04.Network</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Ghost.cpp">
+      <Filter>02.GameObject\Ghost</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>02.GameObject\Player</Filter>
+    </ClCompile>
     <ClCompile Include="Main.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Input.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Time.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>01.Main</Filter>
     </ClCompile>
     <ClCompile Include="RenderScene.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>03.RenderScene</Filter>
     </ClCompile>
     <ClCompile Include="Light.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Collision.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>03.RenderScene\Light</Filter>
     </ClCompile>
     <ClCompile Include="Letter.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>03.RenderScene\Letter</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>05.Time&amp;Input\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Time.cpp">
+      <Filter>05.Time&amp;Input\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>05.Time&amp;Input\Collision</Filter>
     </ClCompile>
     <ClCompile Include="Resource.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>99.rarely use\Resource</Filter>
     </ClCompile>
-    <ClCompile Include="Ghost.cpp">
-      <Filter>소스 파일</Filter>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>99.rarely use\stdafx</Filter>
+    </ClCompile>
+    <ClCompile Include="Network.cpp">
+      <Filter>04.Network\Network</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

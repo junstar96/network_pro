@@ -4,6 +4,7 @@
 #include "Light.h"
 #include "Collision.h"
 #include "Letter.h"
+#include "Player.h"
 
 void board_maker()
 {
@@ -171,10 +172,12 @@ void RenderSceneALL()
 	}
 	glPopMatrix();
 
-	for (int i = 0; i < 10; ++i) {
-		Ghosts[i].Render();
-		collision_ghost(Ghosts[i].pos_x, Ghosts[i].pos_z);
-		//cout << "[" <<	i << "]	" << Ghosts[i].pos_x << endl;
+	if (!Bool_Network) {
+		for (int i = 0; i < 10; ++i) {
+			Ghosts[i].Render();
+			collision_ghost(Ghosts[i].pos_x, Ghosts[i].pos_z);
+			//cout << "[" <<	i << "]	" << Ghosts[i].pos_x << endl;
+		}
 	}
 }
 
@@ -188,14 +191,14 @@ void RenderSceneW1() {
 	
 	if (Level_HP != 0)
 	{
-		gluLookAt(Camera_x, Camera_y, Camera_z,
-			Camera_x + lx, Camera_y + ly, Camera_z + lz,
+		gluLookAt(player.Camera_x, player.Camera_y, player.Camera_z,
+			player.Camera_x + lx, player.Camera_y + ly, player.Camera_z + lz,
 			0.0f, 1.0f, 0.0f);
 	}
 	else
 	{
-		gluLookAt(Camera_x, Camera_y, Camera_z + 100,
-			Camera_x + lx, Camera_y + ly, Camera_z + lz,
+		gluLookAt(player.Camera_x, player.Camera_y, player.Camera_z + 100,
+			player.Camera_x + lx, player.Camera_y + ly, player.Camera_z + lz,
 			0.0f, 1.0f, 0.0f);
 	}
 
@@ -210,11 +213,11 @@ void RenderSceneW1() {
 	glPushMatrix();
 	{
 		glColor3f(1.0, 0.0, 0.0);
-		glTranslatef(Camera_x, Camera_y - 1.5, Camera_z - 3);
-		glRotatef(180 - (angle + deltaAngle)*180.0 / 3.14, 0.0, 1.0, 0.0);
+		//glTranslatef(Camera_x, Camera_y - 1.5, Camera_z);
+		//glRotatef(180 - (angle + deltaAngle)*180.0 / 3.14, 0.0, 1.0, 0.0);
 		
 		//플레이어 관련
-		Draw_PlayerObj();
+		player.Render();
 		
 		Light_Lantern();
 
@@ -227,54 +230,53 @@ void RenderSceneW1() {
 			}
 			glPopMatrix();
 		}
-
-
 	}
 	glPopMatrix();
 
-
-	for (int i = 0; i < B_SIZE; i++)
-	{
-		for (int j = 0; j < B_SIZE; j++)
+	if (!Bool_Network) { // 네트워크 모드일 때 충돌체크는 네트워크에서 검사
+		for (int i = 0; i < B_SIZE; i++)
 		{
-			if (MazeBoard[i][j] == 0) // 그냥 길...
+			for (int j = 0; j < B_SIZE; j++)
 			{
-				if (collision_track(Collision_Maze[i][j])) {
-					MazeBoard[i][j] = 4;
-				}
-			}
-			if (MazeBoard[i][j] == 1) // 벽 부딪치면 게임 out6
-			{
-				collision(Collision_Maze[i][j], i, j);
-			}
-			if (MazeBoard[i][j] == 2) // 아이템 먹기
-			{
-				collision_item(Collision_Maze[i][j]);
-				if (Bool_item == true)
+				if (MazeBoard[i][j] == 0) // 그냥 길...
 				{
-					MazeBoard[i][j] = 0;
-					Bool_item = false;
+					if (collision_track(Collision_Maze[i][j])) {
+						MazeBoard[i][j] = 4;
+					}
 				}
-			}
-			if (MazeBoard[i][j] == 3) // 게임 끝
-			{
-				collision_endline(Collision_Maze[i][j]);
-				if (Bool_item == true)
+				if (MazeBoard[i][j] == 1) // 벽 부딪치면 게임 out6
 				{
-					MazeBoard[i][j] = 0;
-					Bool_item = false;
+					collision(Collision_Maze[i][j], i, j);
+				}
+				if (MazeBoard[i][j] == 2) // 아이템 먹기
+				{
+					collision_item(Collision_Maze[i][j]);
+					if (Bool_item == true)
+					{
+						MazeBoard[i][j] = 0;
+						Bool_item = false;
+					}
+				}
+				if (MazeBoard[i][j] == 3) // 게임 끝
+				{
+					collision_endline(Collision_Maze[i][j]);
+					if (Bool_item == true)
+					{
+						MazeBoard[i][j] = 0;
+						Bool_item = false;
+					}
+				}
+				if (MazeBoard[i][j] == 5) // 막힌 길
+				{
+					collision_sideline(Collision_Maze[i][j], i, j);
 				}
 			}
-			if (MazeBoard[i][j] == 5) // 막힌 길
-			{
-				collision_sideline(Collision_Maze[i][j], i, j);
-			}
+		} // 벽 부딪치는거 체크
+		if (Level_HP == 0)
+		{
+			Bool_Sun = true;
+			Bool_PlayGame = false;
 		}
-	} // 벽 부딪치는거 체크
-	if (Level_HP == 0)
-	{
-		Bool_Sun = true;
-		Bool_PlayGame = false;
 	}
 
 	// 프레임 표시
@@ -310,16 +312,15 @@ void RenderSceneW2() {
 
 	glLoadIdentity();
 
-	gluLookAt(Camera_x, Camera_y + 3 + Level_Minimap, Camera_z,
-		Camera_x, Camera_y - 1, Camera_z,
+	gluLookAt(player.Camera_x, player.Camera_y + 3 + Level_Minimap, player.Camera_z,
+		player.Camera_x, player.Camera_y - 1, player.Camera_z,
 		lx, 0, lz);
-
 
 	// 레드 콘 카메라
 	glPushMatrix();
 	{
 		glColor3f(1.0, 0.0, 0.0);
-		glTranslatef(Camera_x, Camera_y, Camera_z);
+		glTranslatef(player.Camera_x, player.Camera_y, player.Camera_z);
 		glRotatef(180 - (angle + deltaAngle)*180.0 / 3.14, 0.0, 1.0, 0.0);
 		glutSolidCone(0.2, 0.8f, 4, 4);
 	}
@@ -339,9 +340,10 @@ void RenderSceneW2() {
 	glPushMatrix();
 	{
 		glColor3f(1.0, 0.0, 0.0);
-		glTranslatef(Camera_x, Camera_y - 1.5, Camera_z - 3);
-		glRotatef(180 - (angle + deltaAngle)*180.0 / 3.14, 0.0, 1.0, 0.0);
-		Draw_PlayerObj();
+		//glTranslatef(Camera_x, Camera_y - 1.5, Camera_z);
+		//glRotatef(180 - (angle + deltaAngle)*180.0 / 3.14, 0.0, 1.0, 0.0);
+
+		player.Render();
 		Light_Lantern();
 
 
@@ -377,7 +379,7 @@ void RenderSceneW3()
 	// 레드 콘
 	glPushMatrix();
 	glColor3f(1.0, 0.0, 0.0);
-	glTranslatef(Camera_x, Camera_y, Camera_z);
+	glTranslatef(player.Camera_x, player.Camera_y, player.Camera_z);
 	glRotatef(180 - (angle + deltaAngle)*180.0 / 3.14, 0.0, 1.0, 0.0);
 	glutSolidCone(0.2, 0.8f, 4, 4);
 	glPopMatrix();

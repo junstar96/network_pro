@@ -1,6 +1,8 @@
 #include "Input.h"
 #include "stdafx.h"
 #include "resource.h"
+#include "Network.h"
+#include "Player.h"
 
 //////////////////////////////////////
 //			Input.cpp				//
@@ -29,7 +31,7 @@ void Keyboard(unsigned char key, int xx, int yy)
 				FILE *fp;
 
 				PlaySound(TEXT(SOUND_FILE_NAME_ON), NULL, SND_ASYNC | SND_SYNC); // 메뉴바 선택음...!
-				fp = fopen(NET_MAP, "rt"); // NET_MAP / MAP_TEST
+				fp = fopen(MAP_TEST, "rt"); // NET_MAP / MAP_TEST
 				
 				if (fp == NULL)
 				{
@@ -58,9 +60,11 @@ void Keyboard(unsigned char key, int xx, int yy)
 
 				Bool_PlayGame = true;
 				Level_HP += 1;
+				player.SetPosition();
 			}
 			else if (cageX == 0) // cage가 두번 째 메뉴에 있을 때
 			{
+				CreateThread(NULL, 0, Network, NULL, 0, NULL);
 			}
 			else // cage가 종료에 있을 때
 			{

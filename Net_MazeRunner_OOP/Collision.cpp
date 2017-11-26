@@ -20,7 +20,7 @@
 
 void collision(point a, int i, int j)
 {
-	if (a.max_x > Camera_x && a.min_x < Camera_x && a.max_z<Camera_z - 3 && a.min_z > Camera_z - 3)
+	if (a.max_x > player.Camera_x && a.min_x < player.Camera_x && a.max_z<player.Camera_z - 3 && a.min_z > player.Camera_z - 3)
 	{
 		PlaySound(TEXT(SOUND_FILE_NAME_CRASH), NULL, SND_ASYNC | SND_ALIAS);
 		if (Level_HP == 1)
@@ -30,14 +30,14 @@ void collision(point a, int i, int j)
 			Level_HP++;
 		}
 		//cout << "crash" << endl;
-		SetStarting();
+		player.SetPosition();
 		Level_HP -= 1;
 	}
 }
 
 void collision_sideline(point a, int i, int j)
 {
-	if (a.max_x > Camera_x && a.min_x < Camera_x && a.max_z<Camera_z - 3 && a.min_z > Camera_z - 3)
+	if (a.max_x > player.Camera_x && a.min_x < player.Camera_x && a.max_z<player.Camera_z - 3 && a.min_z > player.Camera_z - 3)
 	{
 		if (Level_Key >= 3) {
 			MazeBoard[i][j] = 4;
@@ -52,8 +52,7 @@ void collision_sideline(point a, int i, int j)
 				Level_HP++;
 			}
 			//cout << "crash" << endl;
-
-			SetStarting();
+			player.SetPosition();
 			Level_HP -= 1;
 		}
 	}
@@ -61,7 +60,7 @@ void collision_sideline(point a, int i, int j)
 
 void collision_item(point a)
 {
-	if (a.max_x > Camera_x && a.min_x < Camera_x && a.max_z<Camera_z - 3 && a.min_z > Camera_z - 3)
+	if (a.max_x > player.Camera_x && a.min_x < player.Camera_x && a.max_z<player.Camera_z - 3 && a.min_z > player.Camera_z - 3)
 	{
 		Bool_item = true;
 		//cout << "get item" << endl;
@@ -95,7 +94,7 @@ void collision_item(point a)
 
 void collision_endline(point a)
 {
-	if (a.max_x > Camera_x && a.min_x < Camera_x && a.max_z<Camera_z - 3 && a.min_z > Camera_z - 3)
+	if (a.max_x > player.Camera_x && a.min_x < player.Camera_x && a.max_z<player.Camera_z - 3 && a.min_z > player.Camera_z - 3)
 	{
 		PlaySound(TEXT(SOUND_FILE_NAME_FINISH), NULL, SND_ASYNC | SND_ALIAS);
 
@@ -118,7 +117,7 @@ void collision_ghost(float pos_x, float pos_z)
 	glEnd();
 	glLineWidth(1); // 유령 콜리젼 박스
 
-	if (pos_x+1 > Camera_x && pos_x-1 < Camera_x && pos_z+1 <Camera_z - 3 && pos_z-1 > Camera_z - 3)
+	if (pos_x+1 > player.Camera_x && pos_x-1 < player.Camera_x && pos_z+1 <player.Camera_z - 3 && pos_z-1 > player.Camera_z - 3)
 	{
 		cout << "crash ghost" <<endl;
 		PlaySound(TEXT(SOUND_FILE_NAME_CRASH), NULL, SND_ASYNC | SND_ALIAS);
@@ -131,10 +130,10 @@ void collision_ghost(float pos_x, float pos_z)
 			Level_HP++;
 		}
 
-		printf("%3f \n", Camera_x);
-		printf("%3f \n\n", Camera_z);
+		printf("%3f \n", player.Camera_x);
+		printf("%3f \n\n", player.Camera_z);
 
-		SetStarting();
+		player.SetPosition();
 		Level_HP -= 1;
 		//light_1 = true;
 	}
@@ -142,7 +141,7 @@ void collision_ghost(float pos_x, float pos_z)
 
 bool collision_track(point a)
 {
-	if (a.max_x > Camera_x && a.min_x < Camera_x && a.max_z<Camera_z - 3 && a.min_z > Camera_z - 3)
+	if (a.max_x > player.Camera_x && a.min_x < player.Camera_x && a.max_z<player.Camera_z - 3 && a.min_z > player.Camera_z - 3)
 		return true;
 	else
 		return false;
