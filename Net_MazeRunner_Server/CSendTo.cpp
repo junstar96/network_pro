@@ -2,30 +2,35 @@
 #include "CSendTo.h"
 
 
-bool CSendTo::SendPlayerInfo(void)
+bool CSendTo::SendPlayerInfo(SOCKET& sock, SOCKADDR& Sockaddr, int Iaddrlen, int retval)
 {
+	for (int i = 0; i < PLAYERMAX; ++i)
+	{
+
+		send(sock, (char*)&S_Server_Data.PlayerArray[i], 
+			sizeof(S_Server_Data.PlayerArray[i]), 0);
+	}
 	return false;
 }
 
-bool CSendTo::SendMapInfo(LPVOID arg)
+bool CSendTo::SendMapInfo(SOCKET& sock, SOCKADDR& Sockaddr, int Iaddrlen, int retval)
 {
-	SOCKET Map_info = (SOCKET)arg;
-	//send 함수를 이용하도록 하자
+	
 	
 	return false;
 }
 
-bool CSendTo::SendGhostInfo(void)
+bool CSendTo::SendGhostInfo(SOCKET& sock, SOCKADDR& Sockaddr, int Iaddrlen, int retval)
 {
 	return false;
 }
 
-bool CSendTo::SendOtherInfo(void)
+bool CSendTo::SendOtherInfo(SOCKET& sock, SOCKADDR& Sockaddr, int Iaddrlen, int retval)
 {
 	return false;
 }
 
-CSendTo::CSendTo()
+CSendTo::CSendTo() : CForServer()
 {
 }
 
