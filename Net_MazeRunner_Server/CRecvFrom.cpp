@@ -2,12 +2,13 @@
 #include "CRecvFrom.h"
 
 
-bool CRecvFrom::RecvPlayerInfo(void)
+bool CRecvFrom::RecvPlayerInfo(LPVOID arg)
 {
+	
 	return false;
 }
 
-bool CRecvFrom::RecvMapInfo(void)
+bool CRecvFrom::RecvMapInfo(LPVOID arg)
 {
 	return false;
 }

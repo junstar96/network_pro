@@ -4,6 +4,7 @@
 
 void CForServer::Update_Ghost(void)
 {
+	
 }
 
 void CForServer::CollisionCheck(void)

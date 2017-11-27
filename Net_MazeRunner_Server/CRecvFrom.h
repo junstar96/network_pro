@@ -6,8 +6,8 @@ class CRecvFrom
 	:public CForServer
 {
 public:
-	bool RecvPlayerInfo(void);
-	bool RecvMapInfo(void);
+	bool RecvPlayerInfo(LPVOID);
+	bool RecvMapInfo(LPVOID);
 public:
 	CRecvFrom();
 	~CRecvFrom();

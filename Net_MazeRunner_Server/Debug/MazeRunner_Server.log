@@ -1,12 +1,3 @@
-﻿  stdafx.cpp
-  MazeRunner_Server.cpp
-c:\users\이준성\desktop\구루구루 이미지 폴더\프로그램 파일 관리\network_pro\network_pro\net_mazerunner_server\mazerunner_server.cpp(42): warning C4101: 'buf' :참조되지 않은 지역 변수입니다.
-  CSendTo.cpp
-  CRecvFrom.cpp
-  CPlayer.cpp
-  CMaze.cpp
-  CGhost.cpp
-  CGameObject.cpp
-  CForServer.cpp
-  코드를 생성하고 있습니다...
+﻿  MazeRunner_Server.cpp
+c:\users\이준성\desktop\구루구루 이미지 폴더\프로그램 파일 관리\network_pro\network_pro\net_mazerunner_server\mazerunner_server.cpp(149): warning C4101: 'hThread' :참조되지 않은 지역 변수입니다.
   MazeRunner_Server.vcxproj -> C:\Users\이준성\Desktop\구루구루 이미지 폴더\프로그램 파일 관리\network_pro\network_pro\Net_MazeRunner_Server\Debug\MazeRunner_Server.exe

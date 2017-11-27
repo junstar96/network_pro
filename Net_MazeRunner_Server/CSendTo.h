@@ -6,7 +6,7 @@ class CSendTo
 {
 public:
 	bool SendPlayerInfo(void);
-	bool SendMapInfo(void);
+	bool SendMapInfo(LPVOID);
 	bool SendGhostInfo(void);
 	bool SendOtherInfo(void);
 public:

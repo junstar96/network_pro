@@ -79,21 +79,39 @@ DWORD WINAPI Network(LPVOID arg) {
 	retval = connect(sock, (SOCKADDR *)&serveraddr, sizeof(serveraddr));
 	if (retval == SOCKET_ERROR) err_quit("connect()");
 	
+
+	
+	int struct_len = sizeof(ForPingPong);
 	//////////////////////////////////////////////
 	//											//
 	//		클라 to 서버 코드 들어가야할 부분		//
 	
-	retval = send(sock, (char*)&S_Get_Data, sizeof(ForPingPong), 0);
-	if (retval == SOCKET_ERROR)
+	while (1)
 	{
-		err_quit("send()");
+
+		retval = send(sock, (char*)&struct_len, 4, 0);
+		if (retval == SOCKET_ERROR)
+			err_quit("int send()");
+
+		retval = send(sock, (char*)&S_Get_Data, struct_len, 0);
+		if (retval == SOCKET_ERROR) {
+			err_quit("struct send()");
+		}
+
+
+
+		retval = recvn(sock, (char*)&struct_len, 4, 0);
+		if (retval == SOCKET_ERROR)
+			err_quit("int send()");
+
+
+		retval = recvn(sock, (char*)&S_Get_Data, struct_len, 0);
+		if (retval == SOCKET_ERROR) {
+			err_quit("struct recvn()");
+		}
+
 	}
 
-	retval = recv(sock, (char*)&S_Get_Data, sizeof(ForPingPong), 0);
-	if (retval == SOCKET_ERROR)
-	{
-		err_quit("recv()");
-	}
 	//		--> 플레이어의 좌표					//
 	//											//
 	//		서버 to 클라 코드 들어가야할 부분		//
