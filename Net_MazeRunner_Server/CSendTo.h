@@ -5,10 +5,10 @@ class CSendTo
 	:public CForServer
 {
 public:
-	bool SendPlayerInfo(SOCKET& sock, SOCKADDR& Sockaddr, int Iaddrlen, int retval);
-	bool SendMapInfo(SOCKET& sock, SOCKADDR& Sockaddr, int Iaddrlen, int retval);
-	bool SendGhostInfo(SOCKET& sock, SOCKADDR& Sockaddr, int Iaddrlen, int retval);
-	bool SendOtherInfo(SOCKET& sock, SOCKADDR& Sockaddr, int Iaddrlen, int retval);
+	bool SendPlayerInfo(SOCKET& sock);
+	bool SendMapInfo(SOCKET& sock);
+	bool SendGhostInfo(SOCKET& sock);
+	bool SendOtherInfo(SOCKET& sock);
 public:
 	CSendTo();
 	~CSendTo();

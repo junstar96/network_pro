@@ -89,7 +89,7 @@ DWORD WINAPI Network(LPVOID arg) {
 	while (1)
 	{
 
-		retval = send(sock, (char*)&struct_len, 4, 0);
+		/*retval = send(sock, (char*)&struct_len, 4, 0);
 		if (retval == SOCKET_ERROR)
 			err_quit("int send()");
 
@@ -108,6 +108,46 @@ DWORD WINAPI Network(LPVOID arg) {
 		retval = recvn(sock, (char*)&S_Get_Data, struct_len, 0);
 		if (retval == SOCKET_ERROR) {
 			err_quit("struct recvn()");
+		}*/
+
+		for (int i = 0; i < PLAYERMAX; ++i)
+		{
+			retval = send(sock, (char*)&S_Get_Data.PlayerArray[i],
+				sizeof(S_Get_Data.PlayerArray[i]), 0);
+			if (retval == SOCKET_ERROR)
+				err_quit("player send()");
+		}
+
+		for (int i = 0; i < B_SIZE; ++i)
+		{
+			for (int j = 0; j < B_SIZE; ++j)
+			{
+				retval = send(sock, (char*)&S_Get_Data.MazeArray[i][j],
+					sizeof(S_Get_Data.MazeArray[i][j]), 0);
+
+				if (retval == SOCKET_ERROR)
+					err_quit("maze send()");
+			}
+		}
+
+		for (int i = 0; i < PLAYERMAX; ++i)
+		{
+			retval = recvn(sock, (char*)&S_Get_Data.PlayerArray[i],
+				sizeof(S_Get_Data.PlayerArray[i]), 0);
+			if (retval == SOCKET_ERROR)
+				err_quit("player recvn()");
+		}
+
+		for (int i = 0; i < B_SIZE; ++i)
+		{
+			for (int j = 0; j < B_SIZE; ++j)
+			{
+				retval = recvn(sock, (char*)&S_Get_Data.MazeArray[i][j],
+					sizeof(S_Get_Data.MazeArray[i][j]), 0);
+
+				if (retval == SOCKET_ERROR)
+					err_quit("maze recvn()");
+			}
 		}
 
 	}

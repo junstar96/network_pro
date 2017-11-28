@@ -2,18 +2,44 @@
 #include "CRecvFrom.h"
 
 
-bool CRecvFrom::RecvPlayerInfo(LPVOID arg)
+bool CRecvFrom::RecvPlayerInfo(SOCKET& sock)
 {
-	
-	return false;
+	int retval;
+	for (int i = 0; i < PLAYERMAX; ++i)
+	{
+		retval = recvn(sock, (char*)&S_Server_Data.PlayerArray[i],
+			sizeof(S_Server_Data.PlayerArray[i]), 0);
+
+		if (retval == SOCKET_ERROR)
+		{
+			err_quit("server recvn()");
+			return false;
+		}
+	}
+	return true;
 }
 
-bool CRecvFrom::RecvMapInfo(LPVOID arg)
+bool CRecvFrom::RecvMapInfo(SOCKET& sock)
 {
-	return false;
+	int retval;
+	for (int i = 0; i < B_SIZE; ++i)
+	{
+		for (int j = 0; j < B_SIZE; ++j)
+		{
+			retval = recvn(sock, (char*)&S_Server_Data.MazeArray[i][j],
+				sizeof(S_Server_Data.MazeArray[i][j]), 0);
+
+			if (retval == SOCKET_ERROR)
+			{
+				err_quit("server recvn()");
+				return false;
+			}
+		}
+	}
+	return true;
 }
 
-CRecvFrom::CRecvFrom()
+CRecvFrom::CRecvFrom() : CForServer()
 {
 }
 

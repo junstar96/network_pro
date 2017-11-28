@@ -154,6 +154,7 @@
     <ClInclude Include="CSendTo.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="Enum.h" />
+    <ClInclude Include="error.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Struct.h" />
     <ClInclude Include="targetver.h" />
@@ -166,6 +167,7 @@
     <ClCompile Include="CPlayer.cpp" />
     <ClCompile Include="CRecvFrom.cpp" />
     <ClCompile Include="CSendTo.cpp" />
+    <ClCompile Include="error.cpp" />
     <ClCompile Include="MazeRunner_Server.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
