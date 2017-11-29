@@ -2,8 +2,10 @@
 #include "CForServer.h"
 
 class CSendTo
-	:public CForServer
 {
+private:
+	ForPingPong S_Server_Data;
+
 public:
 	bool SendPlayerInfo(SOCKET& sock);
 	bool SendMapInfo(SOCKET& sock);
@@ -14,6 +16,10 @@ public:
 	{
 		S_Server_Data.MazeArray[i][j].iStatus = get_map;
 	}
+
+	
+	void set_forpingpong(ForPingPong*);
+	ForPingPong* get_forpingpong(void);
 public:
 	CSendTo();
 	~CSendTo();

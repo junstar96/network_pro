@@ -39,7 +39,7 @@ bool CRecvFrom::RecvMapInfo(SOCKET& sock)
 	return true;
 }
 
-CRecvFrom::CRecvFrom() : CForServer()
+CRecvFrom::CRecvFrom()
 {
 }
 
@@ -67,3 +67,14 @@ int recvn(SOCKET s, char *buf, int len, int flags) {
 
 	return (len - left);
 }
+
+ForPingPong* CRecvFrom::get_forpingpong(void)
+{
+	return &S_Server_Data;
+}
+
+void CRecvFrom::set_forpingpong(ForPingPong * get_ping)
+{
+	S_Server_Data = *get_ping;
+}
+

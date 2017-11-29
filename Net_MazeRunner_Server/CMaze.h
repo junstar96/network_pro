@@ -11,7 +11,7 @@ public:
 	int*	GetStatus(void);
 	void	SetStatus(int* Status);
 
-	float*	GetEdge(void);
+	float*   GetEdge(int EdgeWhat);
 	void	SetEdge(float Edge, int EdgeWhat);
 public:
 	CMaze();		//기본생성자

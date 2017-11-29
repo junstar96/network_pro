@@ -12,9 +12,9 @@ void CMaze::SetStatus(int * Status)
 	m_iStatus = *Status;
 }
 
-float* CMaze::GetEdge(void)
+float* CMaze::GetEdge(int EdgeWhat)
 {
-	return m_fEdge;
+	return &m_fEdge[EdgeWhat];
 }
 
 void CMaze::SetEdge(float Edge, int EdgeWhat)

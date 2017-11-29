@@ -30,3 +30,13 @@ CGameObject::CGameObject()
 CGameObject::~CGameObject()
 {
 }
+
+float * CGameObject::GetSize(void)
+{
+	return &m_fSize;
+}
+
+void CGameObject::SetSize(float * Size)
+{
+	m_fSize = *Size;
+}

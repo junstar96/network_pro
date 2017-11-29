@@ -6,24 +6,34 @@
 
 class CForServer
 {
-protected:	//멤버변수
-	ForPingPong S_Server_Data;
-	/*CPlayer m_PlayerArray[PLAYERMAX];
-	CMaze	m_MazeArray[B_SIZE][B_SIZE];
-	CGhost	m_GhostArray[GHOSTMAX];*/
+private:   //멤버변수
+   CPlayer* m_PlayerArray[PLAYERMAX];
+   CMaze   m_MazeArray[B_SIZE][B_SIZE];
+   CGhost   m_GhostArray[GHOSTMAX];
 
-public://업데이트
-	void Update_Ghost(void);
-public://충돌체크
-	void CollisionCheck(void);
-	bool CollCheck_PlayerAndMaze(void);
-	bool CollCheck_PlayerAndGhost(void);
-	
+   int      m_iLightAngle;
+   float   m_fElapsedTime;
 
-	//
+   const float   m_fLightRotCooltime;
 public:
-	CForServer();
-	~CForServer();
+   void UpdatingAll(void);
+
+   void SetElapsedTime(float ElapsedTime);
+
+   
+
+   CPlayer* GetPlayer(int PlayerN);
+   CMaze* GetMaze(int X, int Y);
+   CGhost* GetGhost(int GhostN);
+
+private://업데이트 & 충돌체크
+   void Update_Ghost(void);
+   void Update_Angle(void);
+
+   void CollisionCheck(void);
+   bool CollCheck_PlayerAndMaze(void);
+   bool CollCheck_PlayerAndGhost(void);
+public:
+   CForServer();
+   ~CForServer();
 };
-
-

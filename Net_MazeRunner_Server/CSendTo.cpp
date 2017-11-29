@@ -77,11 +77,21 @@ bool CSendTo::SendOtherInfo(SOCKET& sock)
 	return true;
 }
 
-CSendTo::CSendTo() : CForServer()
+CSendTo::CSendTo()
 {
 }
 
 
 CSendTo::~CSendTo()
 {
+}
+
+void CSendTo::set_forpingpong(ForPingPong* Get_S)
+{
+	S_Server_Data = *Get_S;
+}
+
+ForPingPong * CSendTo::get_forpingpong(void)
+{
+	return &S_Server_Data;
 }

@@ -114,6 +114,16 @@ DWORD WINAPI Network(LPVOID arg) {
 			}
 		}
 
+		for (int i = 0; i < GHOSTMAX; ++i)
+		{
+			retval = recvn(sock, (char*)&S_Get_Data.GhostArray[i],
+				sizeof(S_Get_Data.GhostArray[i]), 0);
+
+			if (retval == SOCKET_ERROR)
+				err_quit("ghost recvn()");
+		}
+
+
 		for (int i = 0; i < PLAYERMAX; ++i)
 		{
 			retval = send(sock, (char*)&S_Get_Data.PlayerArray[i],
@@ -133,6 +143,9 @@ DWORD WINAPI Network(LPVOID arg) {
 					err_quit("maze send()");
 			}
 		}
+
+		
+		//체크를 위해 맵이 들어오는지 확인하는 중
 
 		for (int i = 0; i < 30; ++i)
 		{
