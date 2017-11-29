@@ -65,6 +65,7 @@ void Keyboard(unsigned char key, int xx, int yy)
 			else if (cageX == 0) // cage가 두번 째 메뉴에 있을 때
 			{
 				CreateThread(NULL, 0, Network, NULL, 0, NULL);
+				//network();
 			}
 			else // cage가 종료에 있을 때
 			{

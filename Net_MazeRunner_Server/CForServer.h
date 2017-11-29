@@ -18,7 +18,6 @@ public://충돌체크
 	void CollisionCheck(void);
 	bool CollCheck_PlayerAndMaze(void);
 	bool CollCheck_PlayerAndGhost(void);
-
 	
 
 	//

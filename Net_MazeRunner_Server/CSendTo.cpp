@@ -35,7 +35,7 @@ bool CSendTo::SendMapInfo(SOCKET& sock)
 			retval = send(sock, (char*)&S_Server_Data.MazeArray[i][j],
 				sizeof(S_Server_Data.MazeArray[i][j]), 0);
 
-			if (retval = SOCKET_ERROR)
+			if (retval == SOCKET_ERROR)
 			{
 				err_quit("server send()");
 				return false;

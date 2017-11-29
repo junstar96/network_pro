@@ -13,6 +13,7 @@ extern ForPingPong S_Get_Data;
 extern HANDLE hWrite_Event, hRead_Event;
 
 DWORD WINAPI Network(LPVOID arg);
+void network();
 
 // 대화상자 프로시저
 void err_quit(char *msg);
