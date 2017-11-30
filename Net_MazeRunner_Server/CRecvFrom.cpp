@@ -73,6 +73,21 @@ ForPingPong* CRecvFrom::get_forpingpong(void)
 	return &S_Server_Data;
 }
 
+Player CRecvFrom::Get_Player(int PlayerN)
+{
+	return S_Server_Data.PlayerArray[PlayerN];
+}
+
+Maze CRecvFrom::Get_Maze(int X, int Y)
+{
+	return S_Server_Data.MazeArray[X][Y];
+}
+
+Ghost CRecvFrom::Get_Ghost(int GhostN)
+{
+	return S_Server_Data.GhostArray[GhostN];
+}
+
 void CRecvFrom::set_forpingpong(ForPingPong * get_ping)
 {
 	S_Server_Data = *get_ping;

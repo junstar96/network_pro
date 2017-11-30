@@ -20,7 +20,9 @@ public:
 
    void SetElapsedTime(float ElapsedTime);
 
-   
+   void SetPlayer(Player PlayerInfo, int PlayerN);
+   void SetMaze(Maze MazeInfo, int X, int Y);
+   void SetGhost(Ghost GhostInfo, int GhostN);
 
    CPlayer* GetPlayer(int PlayerN);
    CMaze* GetMaze(int X, int Y);

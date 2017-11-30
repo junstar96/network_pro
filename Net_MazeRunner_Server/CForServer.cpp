@@ -119,6 +119,28 @@ void CForServer::SetElapsedTime(float ElapsedTime)
 	m_fElapsedTime = ElapsedTime;
 }
 
+void CForServer::SetPlayer(Player PlayerInfo, int PlayerN)
+{
+	m_PlayerArray[PlayerN]->SetSerialNum(&PlayerInfo.uiSerialNum);
+	m_PlayerArray[PlayerN]->SetAngle(&PlayerInfo.fAngle);
+	m_PlayerArray[PlayerN]->SetDeltaAngle(&PlayerInfo.fDeltaAngle);
+}
+
+void CForServer::SetMaze(Maze MazeInfo, int X, int Y)
+{
+	for (int i = 0; i < EDGE_END; ++i)
+	{
+		m_MazeArray[X][Y].SetEdge(MazeInfo.fEdge[i],i);
+	}
+	m_MazeArray[X][Y].SetStatus(&MazeInfo.iStatus);
+}
+
+void CForServer::SetGhost(Ghost GhostInfo, int GhostN)
+{
+	m_GhostArray[GhostN].SetPosition(&GhostInfo.Pos);
+	m_GhostArray[GhostN].SetAngle(&GhostInfo.fAngle);
+}
+
 CPlayer* CForServer::GetPlayer(int PlayerN)
 {
 	if (PlayerN > PLAYERMAX)

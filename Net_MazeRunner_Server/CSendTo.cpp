@@ -95,3 +95,25 @@ ForPingPong * CSendTo::get_forpingpong(void)
 {
 	return &S_Server_Data;
 }
+
+void CSendTo::Set_Player(CPlayer* Playerinfo, int PlayerN)
+{
+	S_Server_Data.PlayerArray[PlayerN].fAngle = *Playerinfo->GetAngle();
+	S_Server_Data.PlayerArray[PlayerN].fDeltaAngle = *Playerinfo->GetDeltaAngle();
+	S_Server_Data.PlayerArray[PlayerN].uiSerialNum = *Playerinfo->GetSerialNum();
+}
+
+void CSendTo::Set_Maze(CMaze* Mazeinfo, int X, int Y)
+{
+	for (int i = 0; i < EDGE_END; ++i)
+	{
+		S_Server_Data.MazeArray[X][Y].fEdge[i] = *Mazeinfo->GetEdge(i);
+	}
+	S_Server_Data.MazeArray[X][Y].iStatus = *Mazeinfo->GetStatus();
+}
+
+void CSendTo::Set_Ghost(CGhost* GhostInfo, int GhostN)
+{
+	S_Server_Data.GhostArray[GhostN].Pos = *GhostInfo->GetPosition();
+	S_Server_Data.GhostArray[GhostN].fAngle = *GhostInfo->GetAngle();
+}

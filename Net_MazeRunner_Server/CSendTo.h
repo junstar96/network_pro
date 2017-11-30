@@ -16,10 +16,14 @@ public:
 	{
 		S_Server_Data.MazeArray[i][j].iStatus = get_map;
 	}
-
+	
 	
 	void set_forpingpong(ForPingPong*);
 	ForPingPong* get_forpingpong(void);
+	
+	void Set_Player(CPlayer*, int);
+	void Set_Maze(CMaze*, int x, int y);
+	void Set_Ghost(CGhost*, int);
 public:
 	CSendTo();
 	~CSendTo();

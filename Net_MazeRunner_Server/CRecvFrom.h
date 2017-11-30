@@ -18,6 +18,10 @@ public:
 	bool RecvPlayerInfo(SOCKET&);
 	bool RecvMapInfo(SOCKET&);
 	ForPingPong* get_forpingpong(void);
+	Player Get_Player(int);
+	Maze Get_Maze(int, int);
+	Ghost Get_Ghost(int);
+
 	void set_forpingpong(ForPingPong*);
 public:
 	CRecvFrom();
