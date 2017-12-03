@@ -9,7 +9,7 @@ unsigned int * CPlayer::GetSerialNum(void)
 
 void CPlayer::SetSerialNum(unsigned int * SerialNum)
 {
-	m_uiSerialNum = *SerialNum;
+	m_uiSerialNum = * SerialNum;
 }
 
 int * CPlayer::GetMyTeam(void)

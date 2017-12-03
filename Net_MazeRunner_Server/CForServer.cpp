@@ -217,6 +217,9 @@ CForServer::CForServer()
 	CPlayer* tempPlayer = new CPlayer();
 	tempPlayer->SetPosition(&Position(0, 0, 0));
 	m_PlayerArray[0] = tempPlayer;
+	m_PlayerArray[1] = tempPlayer;
+	m_PlayerArray[2] = tempPlayer;
+	m_PlayerArray[3] = tempPlayer;
 
 	//고스트 >> 파일, 생성,,, 
 	for (int i = 0; i < GHOSTMAX; ++i)
@@ -232,6 +235,8 @@ CForServer::CForServer()
 	}
 
 	m_iLightAngle = 0.f;
+
+	delete tempPlayer;
 }
 
 
