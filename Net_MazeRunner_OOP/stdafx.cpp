@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "Network.h"
 
 ///////////////////////////////////////////////////////////
 //                     Sub Menu                          //
@@ -14,14 +15,14 @@ int item_rand = 8;
 clock_t start, finish;
 
 //bool °ª
-bool Bool_Greed = true;
-bool Bool_item = false;
-bool bool_line = false;
-bool Bool_Shading = true;
-bool Bool_Depth = true;
-bool Bool_Culling = true;
-bool Bool_PlayGame = false;
-bool Bool_Network = false;
+bool isGreed = true;
+bool isItem = false;
+bool isLine = false;
+bool isShading = true;
+bool isDepth = true;
+bool isCulling = true;
+bool isPlayGame = false;
+bool isNetwork = false;
 
 ///////////////////////////////////////////////////////////
 //                     Lookat
@@ -61,7 +62,8 @@ int cutoff = 10;
 ///////////////////////////////////////////////////////////
 
 int MazeBoard[B_SIZE][B_SIZE] = { 0 };
-
+Ghost Ghosts[10];
+CPlayer player;
 ///////////////////////////////////////////////////////////
 //                 Camera & Window                       //
 ///////////////////////////////////////////////////////////
@@ -99,9 +101,6 @@ int startingpoint = 0;
 /////////////////////////////////////////////
 
 point Collision_Maze[B_SIZE][B_SIZE];
-
-Ghost Ghosts[10];
-CPlayer player;
 
 //////////////////////////////////////////////////////////
 

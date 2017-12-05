@@ -24,7 +24,7 @@ void Keyboard(unsigned char key, int xx, int yy)
 	}
 	if (key == ' ')
 	{
-		if (Bool_PlayGame == false)
+		if (isPlayGame == false)
 		{
 			if (cageX == -55) // cage가 Play에 있을 때
 			{
@@ -58,7 +58,7 @@ void Keyboard(unsigned char key, int xx, int yy)
 				}
 				fclose(fp);
 
-				Bool_PlayGame = true;
+				isPlayGame = true;
 				Level_HP += 1;
 				player.SetPosition();
 			}
@@ -91,7 +91,7 @@ void Keyboard(unsigned char key, int xx, int yy)
 
 void SpecialKeyboard(int key, int xx, int yy)
 {
-	if (Bool_PlayGame == true) // 게임 중 키 관리
+	if (isPlayGame == true) // 게임 중 키 관리
 	{
 		if (key == GLUT_KEY_LEFT)
 		{
@@ -127,6 +127,8 @@ void SpecialKeyboard(int key, int xx, int yy)
 			}
 		}
 	}
+
+	
 
 	glutSetWindow(mainWindow);
 	glutPostRedisplay();

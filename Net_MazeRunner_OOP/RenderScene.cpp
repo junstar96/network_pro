@@ -172,12 +172,14 @@ void RenderSceneALL()
 	}
 	glPopMatrix();
 
-	if (!Bool_Network) {
+	if (!isNetwork) {
 		for (int i = 0; i < 10; ++i) {
-			Ghosts[i].Render();
 			collision_ghost(Ghosts[i].pos_x, Ghosts[i].pos_z);
 			//cout << "[" <<	i << "]	" << Ghosts[i].pos_x << endl;
 		}
+	}
+	for (int i = 0; i < 10; ++i) {
+		Ghosts[i].Render();
 	}
 }
 
@@ -221,7 +223,7 @@ void RenderSceneW1() {
 		
 		Light_Lantern();
 
-		if (Bool_Greed == true)
+		if (isGreed == true)
 		{
 			glPushMatrix();
 			{
@@ -233,7 +235,7 @@ void RenderSceneW1() {
 	}
 	glPopMatrix();
 
-	if (!Bool_Network) { // 네트워크 모드일 때 충돌체크는 네트워크에서 검사
+	if (!isNetwork) { // 네트워크 모드일 때 충돌체크는 네트워크에서 검사
 		for (int i = 0; i < B_SIZE; i++)
 		{
 			for (int j = 0; j < B_SIZE; j++)
@@ -251,19 +253,19 @@ void RenderSceneW1() {
 				if (MazeBoard[i][j] == 2) // 아이템 먹기
 				{
 					collision_item(Collision_Maze[i][j]);
-					if (Bool_item == true)
+					if (isItem == true)
 					{
 						MazeBoard[i][j] = 0;
-						Bool_item = false;
+						isItem = false;
 					}
 				}
 				if (MazeBoard[i][j] == 3) // 게임 끝
 				{
 					collision_endline(Collision_Maze[i][j]);
-					if (Bool_item == true)
+					if (isItem == true)
 					{
 						MazeBoard[i][j] = 0;
-						Bool_item = false;
+						isItem = false;
 					}
 				}
 				if (MazeBoard[i][j] == 5) // 막힌 길
@@ -275,7 +277,7 @@ void RenderSceneW1() {
 		if (Level_HP == 0)
 		{
 			Bool_Sun = true;
-			Bool_PlayGame = false;
+			isPlayGame = false;
 		}
 	}
 
@@ -334,9 +336,6 @@ void RenderSceneW2() {
 	RenderSceneALL();
 	board_maker();
 
-	// 유령
-
-
 	glPushMatrix();
 	{
 		glColor3f(1.0, 0.0, 0.0);
@@ -348,7 +347,7 @@ void RenderSceneW2() {
 
 
 
-		if (Bool_Greed == true)
+		if (isGreed == true)
 		{
 			glPushMatrix();
 			{
@@ -386,7 +385,7 @@ void RenderSceneW3()
 
 	RenderSceneALL();
 
-	if (Bool_PlayGame == true)
+	if (isPlayGame == true)
 	{
 		letter_Play();
 		letter_item();

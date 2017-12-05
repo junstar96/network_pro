@@ -49,7 +49,8 @@ int main(int argc, char **argv) {
 
 	player.SetPosition();
 	
-
+	hWrite_Event = CreateEvent(NULL, FALSE, TRUE, NULL);
+	hRead_Event = CreateEvent(NULL, FALSE, FALSE, NULL);
 
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);

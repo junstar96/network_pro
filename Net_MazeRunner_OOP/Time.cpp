@@ -3,23 +3,29 @@
 #include "stdafx.h"
 #include "Ghost.h"
 #include "Collision.h"
+#include "Network.h"
 
 void TimerFunction(int value)
 {
+	
+
+
 	obj_rot += 2;
 	if (obj_rot > 10000)
 	{
 		obj_rot = 0;
 	} // 아이템, 도착지점 Obj 회전
 
-	if (Bool_PlayGame == true)
+	if (isPlayGame == true)
 	{
-		for (int i = 0; i<10; ++i) {
-			Ghosts[i].MoveFoward(1.3, 30 * i);
-			if (Light_rot % 120 == 0) {
-				Ghosts[i].SetPosition(0, 0, 0);
+		if (isNetwork == false) {
+			for (int i = 0; i < 10; ++i) {
+				Ghosts[i].MoveFoward(1.3, 30 * i);
+				if (Light_rot % 120 == 0) {
+					Ghosts[i].SetPosition(0, 0, 0);
+				}
+				collision_ghost(Ghosts[i].pos_x, Ghosts[i].pos_z);
 			}
-			collision_ghost(Ghosts[i].pos_x, Ghosts[i].pos_z);
 		}
 		if (Light_rot < 360)
 		{
@@ -51,5 +57,5 @@ void TimerFunction(int value)
 	}
 
 	glutPostRedisplay();   // 화면 재 출력 
-	glutTimerFunc(timef, TimerFunction, 60); // 타이머함수 재 설정
+	glutTimerFunc(timef, TimerFunction, 30); // 타이머함수 재 설정
 } // 시간

@@ -61,6 +61,12 @@
     <Filter Include="04.Network\Network">
       <UniqueIdentifier>{a6e7fe33-cf94-4b7d-a2c5-9821892ed244}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\OtherPlayer">
+      <UniqueIdentifier>{6cbe7e6b-c9a1-46a0-8932-7200255ce512}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\Other">
+      <UniqueIdentifier>{f2051c69-5e06-4824-8218-d06a48a4d27f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ghost.h">
@@ -105,6 +111,9 @@
     <ClInclude Include="SetNetwork.h">
       <Filter>04.Network</Filter>
     </ClInclude>
+    <ClInclude Include="OtherPlayer.h">
+      <Filter>02.GameObject\Other</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Ghost.cpp">
@@ -142,6 +151,9 @@
     </ClCompile>
     <ClCompile Include="Network.cpp">
       <Filter>04.Network\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="OtherPlayer.cpp">
+      <Filter>02.GameObject\Other</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

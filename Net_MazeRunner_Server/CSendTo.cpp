@@ -79,6 +79,12 @@ bool CSendTo::SendOtherInfo(SOCKET& sock)
 
 CSendTo::CSendTo()
 {
+	for (int i = 0; i < PLAYERMAX; ++i)
+	{
+		S_Server_Data.PlayerArray[i].Pos.fX = 0.0f;
+		S_Server_Data.PlayerArray[i].Pos.fY = 0.0f;
+		S_Server_Data.PlayerArray[i].Pos.fZ = 0.0f;
+	}
 }
 
 

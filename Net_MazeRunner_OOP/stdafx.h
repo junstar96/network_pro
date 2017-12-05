@@ -40,14 +40,14 @@ extern int item_rand;
 extern clock_t start, finish;
 
 //bool °ª
-extern bool Bool_Greed;
-extern bool Bool_item;
-extern bool bool_line;
-extern bool Bool_Shading;
-extern bool Bool_Depth;
+extern bool isGreed;
+extern bool isItem;
+extern bool isLine;
+extern bool isShading;
+extern bool isDepth;
 extern bool cullingone;
-extern bool Bool_PlayGame;
-extern bool Bool_Network;
+extern bool isPlayGame;
+extern bool isNetwork;
 
 ///////////////////////////////////////////////////////////
 //                     Lookat

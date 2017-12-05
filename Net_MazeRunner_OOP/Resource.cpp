@@ -304,7 +304,7 @@ void startinit()
 	deltaAngle = 0;
 	Light_rot = 0;
 	Bool_Sun = true;
-	Bool_PlayGame = true;
+	isPlayGame = true;
 }
 // Projection
 

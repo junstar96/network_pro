@@ -8,6 +8,7 @@
 SOCKET sock; // 소켓
 char buf[BUFSIZE2 + 1]; // 데이터 송수신 버퍼
 ForPingPong S_Get_Data;
+
 HANDLE hWrite_Event, hRead_Event;
 
 void err_quit(char *msg)
@@ -82,25 +83,34 @@ DWORD WINAPI Network(LPVOID arg) {
 
 	
 	int struct_len = sizeof(ForPingPong);
-	//////////////////////////////////////////////
-	//											//
-	//		클라 to 서버 코드 들어가야할 부분		//
 
-	Bool_PlayGame = true;
-	Bool_Network = true;
+	isPlayGame = true;
+	isNetwork = true;
 
 	Level_HP += 1;
 	player.SetPosition();
 	while (1)
 	{
-
+		//////////////////////////////////////////////
+		//											//
+		//		서버 to 클라 코드 들어가야할 부분		//
+		//											//
+		//////////////////////////////////////////////
 		for (int i = 0; i < PLAYERMAX; ++i)
 		{
 			retval = recvn(sock, (char*)&S_Get_Data.PlayerArray[i],
 				sizeof(S_Get_Data.PlayerArray[i]), 0);
 			if (retval == SOCKET_ERROR)
 				err_quit("player recvn()");
+			printf("%d", S_Get_Data.PlayerArray[i].uiSerialNum); 
+			// 시리얼 넘버 서버에서 붙일 것인가?, 클라에서 붙일 것인가?
+			printf("\n");
+
+			
 		}
+		player.Camera_x = S_Get_Data.PlayerArray[0].Pos.fX;
+		player.Camera_y = S_Get_Data.PlayerArray[0].Pos.fY;
+		player.Camera_z = S_Get_Data.PlayerArray[0].Pos.fZ;
 
 		for (int i = 0; i < B_SIZE; ++i)
 		{
@@ -108,11 +118,14 @@ DWORD WINAPI Network(LPVOID arg) {
 			{
 				retval = recvn(sock, (char*)&S_Get_Data.MazeArray[i][j],
 					sizeof(S_Get_Data.MazeArray[i][j]), 0);
-
 				if (retval == SOCKET_ERROR)
 					err_quit("maze recvn()");
+
+				MazeBoard[i][j] = S_Get_Data.MazeArray[i][j].iStatus;
+				printf("%d ", S_Get_Data.MazeArray[i][j].iStatus);
 			}
-		}
+			printf("\n");
+		} // 맵 전송받기 완료
 
 		for (int i = 0; i < GHOSTMAX; ++i)
 		{
@@ -121,8 +134,24 @@ DWORD WINAPI Network(LPVOID arg) {
 
 			if (retval == SOCKET_ERROR)
 				err_quit("ghost recvn()");
-		}
 
+			Ghosts[i].pos_x = S_Get_Data.GhostArray[i].Pos.fX;
+			Ghosts[i].pos_y = S_Get_Data.GhostArray[i].Pos.fY;
+			Ghosts[i].pos_z = S_Get_Data.GhostArray[i].Pos.fZ;
+			printf("%f", Ghosts[i].pos_x = S_Get_Data.GhostArray[i].Pos.fX);
+			printf("\n");
+		} // 고스트 좌표 더미로 넘어옴
+
+
+		//////////////////////////////////////////////
+		//											//
+		//		클라 to 서버 코드 들어가야할 부분		//
+		//											//
+		//////////////////////////////////////////////
+
+		//CSendtoServer(); // 플레이어 포지션 좌표 보내기.
+
+		Sleep(30);
 
 		for (int i = 0; i < PLAYERMAX; ++i)
 		{
@@ -132,57 +161,18 @@ DWORD WINAPI Network(LPVOID arg) {
 				err_quit("player send()");
 		}
 
-		for (int i = 0; i < B_SIZE; ++i)
-		{
-			for (int j = 0; j < B_SIZE; ++j)
-			{
-				retval = send(sock, (char*)&S_Get_Data.MazeArray[i][j],
-					sizeof(S_Get_Data.MazeArray[i][j]), 0);
+		//for (int i = 0; i < B_SIZE; ++i)
+		//{
+		//	for (int j = 0; j < B_SIZE; ++j)
+		//	{
+		//		retval = send(sock, (char*)&S_Get_Data.MazeArray[i][j],
+		//			sizeof(S_Get_Data.MazeArray[i][j]), 0);
 
-				if (retval == SOCKET_ERROR)
-					err_quit("maze send()");
-			}
-		}
-
-		
-		//체크를 위해 맵이 들어오는지 확인하는 중
-
-		for (int i = 0; i < 30; ++i)
-		{
-			for (int j = 0; j < 30; ++j)
-			{
-				printf("%d ", S_Get_Data.MazeArray[i][j].iStatus);
-			}
-			printf("\n");
-		}
-			
-		for (int i = 0; i < B_SIZE; i++)
-		{
-			for (int j = 0; j < B_SIZE; j++)
-			{
-				MazeBoard[i][j] = S_Get_Data.MazeArray[i][j].iStatus;
-			}
-		}
-	
-
+		//		if (retval == SOCKET_ERROR)
+		//			err_quit("maze send()");
+		//	}
+		//} Maze보내줄 필요가 있나?
 	}
-
-	//		--> 플레이어의 좌표					//
-	//											//
-	//		서버 to 클라 코드 들어가야할 부분		//
-	//		--> PingPong (맵, 고스트, 상대방)		//
-	//											//
-	//////////////////////////////////////////////
-
-	// 고스트, 상대플레이어 위치 좌표는 랜더에서 받아와야할텐데.
-
-	///////////////////////////////////////////////////////////
-
-	//CSendtoServer(); // 플레이어 포지션 좌표 보내기.
-
-	///////////////////////////////////////////////////////////
-
-
 
 	//closesocket()
 	closesocket(sock);

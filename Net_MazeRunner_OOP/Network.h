@@ -10,9 +10,11 @@
 extern SOCKET sock; // 소켓
 extern char buf[BUFSIZE2 + 1]; // 데이터 송수신 버퍼
 extern ForPingPong S_Get_Data;
-extern HANDLE hWrite_Event, hRead_Event;
+extern HANDLE hWrite_Event, hRead_Event, Update_Event;
 
 DWORD WINAPI Network(LPVOID arg);
+DWORD WINAPI SendThread(LPVOID arg);
+DWORD WINAPI RecvThread(LPVOID arg);
 void network();
 
 // 대화상자 프로시저

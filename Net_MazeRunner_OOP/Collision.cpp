@@ -62,7 +62,7 @@ void collision_item(point a)
 {
 	if (a.max_x > player.Camera_x && a.min_x < player.Camera_x && a.max_z<player.Camera_z - 3 && a.min_z > player.Camera_z - 3)
 	{
-		Bool_item = true;
+		isItem = true;
 		//cout << "get item" << endl;
 		PlaySound(TEXT(SOUND_FILE_NAME), NULL, SND_ASYNC | SND_ALIAS);
 
