@@ -96,21 +96,20 @@ DWORD WINAPI Network(LPVOID arg) {
 		//		서버 to 클라 코드 들어가야할 부분		//
 		//											//
 		//////////////////////////////////////////////
+
+		S_Get_Data.PlayerArray[0].Pos.fX = player.Camera_x;
+		S_Get_Data.PlayerArray[0].Pos.fY = player.Camera_y;
+		S_Get_Data.PlayerArray[0].Pos.fZ = player.Camera_z;
+
 		for (int i = 0; i < PLAYERMAX; ++i)
 		{
-			retval = recvn(sock, (char*)&S_Get_Data.PlayerArray[i],
+			retval = send(sock, (char*)&S_Get_Data.PlayerArray[i],
 				sizeof(S_Get_Data.PlayerArray[i]), 0);
 			if (retval == SOCKET_ERROR)
-				err_quit("player recvn()");
-			printf("%d", S_Get_Data.PlayerArray[i].uiSerialNum); 
-			// 시리얼 넘버 서버에서 붙일 것인가?, 클라에서 붙일 것인가?
-			printf("\n");
-
-			
+				err_quit("player send()");
 		}
-		player.Camera_x = S_Get_Data.PlayerArray[0].Pos.fX;
-		player.Camera_y = S_Get_Data.PlayerArray[0].Pos.fY;
-		player.Camera_z = S_Get_Data.PlayerArray[0].Pos.fZ;
+
+		
 
 		for (int i = 0; i < B_SIZE; ++i)
 		{
@@ -122,9 +121,8 @@ DWORD WINAPI Network(LPVOID arg) {
 					err_quit("maze recvn()");
 
 				MazeBoard[i][j] = S_Get_Data.MazeArray[i][j].iStatus;
-				printf("%d ", S_Get_Data.MazeArray[i][j].iStatus);
+				//printf("%d ", S_Get_Data.MazeArray[i][j].iStatus);
 			}
-			printf("\n");
 		} // 맵 전송받기 완료
 
 		for (int i = 0; i < GHOSTMAX; ++i)
@@ -138,7 +136,7 @@ DWORD WINAPI Network(LPVOID arg) {
 			Ghosts[i].pos_x = S_Get_Data.GhostArray[i].Pos.fX;
 			Ghosts[i].pos_y = S_Get_Data.GhostArray[i].Pos.fY;
 			Ghosts[i].pos_z = S_Get_Data.GhostArray[i].Pos.fZ;
-			printf("%f", Ghosts[i].pos_x = S_Get_Data.GhostArray[i].Pos.fX);
+			printf("ghost fx = %f", S_Get_Data.GhostArray[i].Pos.fX);
 			printf("\n");
 		} // 고스트 좌표 더미로 넘어옴
 
@@ -151,15 +149,24 @@ DWORD WINAPI Network(LPVOID arg) {
 
 		//CSendtoServer(); // 플레이어 포지션 좌표 보내기.
 
-		Sleep(30);
+		Sleep(100);
 
 		for (int i = 0; i < PLAYERMAX; ++i)
 		{
-			retval = send(sock, (char*)&S_Get_Data.PlayerArray[i],
+			retval = recvn(sock, (char*)&S_Get_Data.PlayerArray[i],
 				sizeof(S_Get_Data.PlayerArray[i]), 0);
 			if (retval == SOCKET_ERROR)
-				err_quit("player send()");
+				err_quit("player recvn()");
+			//printf("%d", S_Get_Data.PlayerArray[i].uiSerialNum);
+			// 시리얼 넘버 서버에서 붙일 것인가?, 클라에서 붙일 것인가?
+			//printf("\n");
+
+
 		}
+		player.Camera_x = S_Get_Data.PlayerArray[0].Pos.fX;
+		player.Camera_y = S_Get_Data.PlayerArray[0].Pos.fY;
+		player.Camera_z = S_Get_Data.PlayerArray[0].Pos.fZ;
+	
 
 		//for (int i = 0; i < B_SIZE; ++i)
 		//{
@@ -204,9 +211,6 @@ void network()
 	retval = connect(sock, (SOCKADDR *)&serveraddr, sizeof(serveraddr));
 	if (retval == SOCKET_ERROR) err_quit("connect()");
 
-
-
-	int struct_len = sizeof(ForPingPong);
 	//////////////////////////////////////////////
 	//											//
 	//		클라 to 서버 코드 들어가야할 부분		//
@@ -301,4 +305,15 @@ void network()
 
 	//윈속 종료
 	WSACleanup();
+}
+
+
+DWORD WINAPI SendThread(LPVOID arg)
+{
+	return 0;
+}
+
+DWORD WINAPI RecvThread(LPVOID arg)
+{
+	return 0;
 }

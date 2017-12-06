@@ -82,8 +82,19 @@ CSendTo::CSendTo()
 	for (int i = 0; i < PLAYERMAX; ++i)
 	{
 		S_Server_Data.PlayerArray[i].Pos.fX = 0.0f;
-		S_Server_Data.PlayerArray[i].Pos.fY = 0.0f;
+		S_Server_Data.PlayerArray[i].Pos.fY = 3.0f;
 		S_Server_Data.PlayerArray[i].Pos.fZ = 0.0f;
+		S_Server_Data.PlayerArray[i].fAngle = 0;
+		S_Server_Data.PlayerArray[i].fDeltaAngle = 0;
+		S_Server_Data.PlayerArray[i].iMyTeam = 1;
+		S_Server_Data.PlayerArray[i].uiSerialNum = 1;
+	}
+
+	for (int i = 0; i < GHOSTMAX; ++i)
+	{
+		S_Server_Data.GhostArray[i].Pos.fX = 0.0f;
+		S_Server_Data.GhostArray[i].Pos.fY = 0.0f;
+		S_Server_Data.GhostArray[i].Pos.fZ = 0.0f;
 	}
 }
 

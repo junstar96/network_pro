@@ -5,7 +5,7 @@
 
 
 void CForServer::Update_Ghost(void)
-{/*
+{
  for (int i = 0; i < GHOSTMAX; ++i)
  {
  Position TempPos = *m_GhostArray[i].GetPosition();
@@ -16,7 +16,7 @@ void CForServer::Update_Ghost(void)
  TempPos.fZ += fTempSpeed * -cos(fTempAngle) * m_fElapsedTime;
 
  m_GhostArray[i].SetPosition(&TempPos);
- }*/
+ }
 
  /*static float tempPrintCooltime = 0.f;
  tempPrintCooltime += m_fElapsedTime;
@@ -124,6 +124,8 @@ void CForServer::SetPlayer(Player PlayerInfo, int PlayerN)
 	m_PlayerArray[PlayerN]->SetSerialNum(&PlayerInfo.uiSerialNum);
 	m_PlayerArray[PlayerN]->SetAngle(&PlayerInfo.fAngle);
 	m_PlayerArray[PlayerN]->SetDeltaAngle(&PlayerInfo.fDeltaAngle);
+	//printf("%f \n", m_PlayerArray[PlayerN]->GetPosition()->fX);
+	
 }
 
 void CForServer::SetMaze(Maze MazeInfo, int X, int Y)
@@ -210,9 +212,9 @@ CForServer::CForServer()
 	}
 	fclose(fp);
 
-	//플레이어
-	for (int i = 0; i < PLAYERMAX; ++i)
-		m_PlayerArray[i] = NULL;
+	////플레이어
+	//for (int i = 0; i < PLAYERMAX; ++i)
+	//	m_PlayerArray[i] = NULL;
 
 	CPlayer* tempPlayer = new CPlayer();
 	tempPlayer->SetPosition(&Position(0, 0, 0));
@@ -236,7 +238,7 @@ CForServer::CForServer()
 
 	m_iLightAngle = 0.f;
 
-	delete tempPlayer;
+	//delete tempPlayer;
 }
 
 

@@ -10,6 +10,10 @@ bool CRecvFrom::RecvPlayerInfo(SOCKET& sock)
 		retval = recvn(sock, (char*)&S_Server_Data.PlayerArray[i],
 			sizeof(S_Server_Data.PlayerArray[i]), 0);
 
+		// cplayer 클래스의 경우, for server에는 null /null / null / null
+		// new cplayer () 를 해서 소속을 정해주고 하는 과정이..없지않나?
+		//음...
+
 		if (retval == SOCKET_ERROR)
 		{
 			err_quit("server recvn()");
@@ -41,6 +45,23 @@ bool CRecvFrom::RecvMapInfo(SOCKET& sock)
 
 CRecvFrom::CRecvFrom()
 {
+	for (int i = 0; i < PLAYERMAX; ++i)
+	{
+		S_Server_Data.PlayerArray[i].Pos.fX = 0.0f;
+		S_Server_Data.PlayerArray[i].Pos.fY = 3.0f;
+		S_Server_Data.PlayerArray[i].Pos.fZ = 0.0f;
+		S_Server_Data.PlayerArray[i].fAngle = 0;
+		S_Server_Data.PlayerArray[i].fDeltaAngle = 0;
+		S_Server_Data.PlayerArray[i].iMyTeam = i;
+		S_Server_Data.PlayerArray[i].uiSerialNum = i;
+	}
+
+	for (int i = 0; i < GHOSTMAX; ++i)
+	{
+		S_Server_Data.GhostArray[i].Pos.fX = 0.0f;
+		S_Server_Data.GhostArray[i].Pos.fY = 0.0f;
+		S_Server_Data.GhostArray[i].Pos.fZ = 0.0f;
+	}
 }
 
 
