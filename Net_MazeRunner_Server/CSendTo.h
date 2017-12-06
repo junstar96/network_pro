@@ -5,7 +5,6 @@ class CSendTo
 {
 private:
 	ForPingPong S_Server_Data;
-
 public:
 	bool SendPlayerInfo(SOCKET& sock);
 	bool SendMapInfo(SOCKET& sock);
@@ -24,6 +23,14 @@ public:
 	void Set_Player(CPlayer*, int);
 	void Set_Maze(CMaze*, int x, int y);
 	void Set_Ghost(CGhost*, int);
+	void Set_Connect(bool, int);
+
+	bool Get_Connect(int);
+
+	Player Get_Player(int PlayerN)
+	{
+		return S_Server_Data.PlayerArray[PlayerN];
+	}
 public:
 	CSendTo();
 	~CSendTo();

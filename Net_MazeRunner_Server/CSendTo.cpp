@@ -88,14 +88,15 @@ CSendTo::CSendTo()
 		S_Server_Data.PlayerArray[i].fDeltaAngle = 0;
 		S_Server_Data.PlayerArray[i].iMyTeam = 1;
 		S_Server_Data.PlayerArray[i].uiSerialNum = 1;
+		S_Server_Data.PlayerArray[i].connect = false;
 	}
 
-	for (int i = 0; i < GHOSTMAX; ++i)
+	/*for (int i = 0; i < GHOSTMAX; ++i)
 	{
 		S_Server_Data.GhostArray[i].Pos.fX = 0.0f;
 		S_Server_Data.GhostArray[i].Pos.fY = 0.0f;
 		S_Server_Data.GhostArray[i].Pos.fZ = 0.0f;
-	}
+	}*/
 }
 
 
@@ -118,6 +119,8 @@ void CSendTo::Set_Player(CPlayer* Playerinfo, int PlayerN)
 	S_Server_Data.PlayerArray[PlayerN].fAngle = *Playerinfo->GetAngle();
 	S_Server_Data.PlayerArray[PlayerN].fDeltaAngle = *Playerinfo->GetDeltaAngle();
 	S_Server_Data.PlayerArray[PlayerN].uiSerialNum = *Playerinfo->GetSerialNum();
+	S_Server_Data.PlayerArray[PlayerN].Pos = *Playerinfo->GetPosition();
+	printf("send set °ª %f\n", S_Server_Data.PlayerArray[PlayerN].Pos.fX);
 }
 
 void CSendTo::Set_Maze(CMaze* Mazeinfo, int X, int Y)
@@ -129,8 +132,20 @@ void CSendTo::Set_Maze(CMaze* Mazeinfo, int X, int Y)
 	S_Server_Data.MazeArray[X][Y].iStatus = *Mazeinfo->GetStatus();
 }
 
+
+
 void CSendTo::Set_Ghost(CGhost* GhostInfo, int GhostN)
 {
 	S_Server_Data.GhostArray[GhostN].Pos = *GhostInfo->GetPosition();
 	S_Server_Data.GhostArray[GhostN].fAngle = *GhostInfo->GetAngle();
+}
+
+void CSendTo::Set_Connect(bool get, int connectN)
+{
+	S_Server_Data.PlayerArray[connectN].connect = get;
+}
+
+bool CSendTo::Get_Connect(int connectN)
+{
+	return S_Server_Data.PlayerArray[connectN].connect;
 }

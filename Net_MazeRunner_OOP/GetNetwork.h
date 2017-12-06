@@ -6,7 +6,7 @@
 struct GetPlayer_Net {
 	unsigned int	uiSerialNum;	//고유번호
 	int				iMyTeam;		//팀 소속
-
+	bool            connect;
 	Position		Pos;			//위치값
 	float			fAngle;			//회전각도
 	float			fDeltaAngle;		//조작에따른각도
@@ -38,4 +38,5 @@ struct ForPingPong {
 	Ghost_Net	GhostArray[GHOSTMAX];
 
 	int iLightRotation;
+	int connect_num;
 };

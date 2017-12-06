@@ -54,6 +54,7 @@ CRecvFrom::CRecvFrom()
 		S_Server_Data.PlayerArray[i].fDeltaAngle = 0;
 		S_Server_Data.PlayerArray[i].iMyTeam = i;
 		S_Server_Data.PlayerArray[i].uiSerialNum = i;
+		S_Server_Data.PlayerArray[i].connect = false;
 	}
 
 	for (int i = 0; i < GHOSTMAX; ++i)
@@ -62,6 +63,7 @@ CRecvFrom::CRecvFrom()
 		S_Server_Data.GhostArray[i].Pos.fY = 0.0f;
 		S_Server_Data.GhostArray[i].Pos.fZ = 0.0f;
 	}
+
 }
 
 
@@ -109,8 +111,24 @@ Ghost CRecvFrom::Get_Ghost(int GhostN)
 	return S_Server_Data.GhostArray[GhostN];
 }
 
+bool CRecvFrom::Get_Connect(int connectN)
+{
+	return S_Server_Data.PlayerArray[connectN].connect;
+}
+
 void CRecvFrom::set_forpingpong(ForPingPong * get_ping)
 {
 	S_Server_Data = *get_ping;
+}
+
+void CRecvFrom::Set_Ghost(CGhost* GhostInfo, int GhostN)
+{
+	S_Server_Data.GhostArray[GhostN].Pos = *GhostInfo->GetPosition();
+	S_Server_Data.GhostArray[GhostN].fAngle = *GhostInfo->GetAngle();
+}
+
+void CRecvFrom::Set_Connect(bool get, int connectN)
+{
+	S_Server_Data.PlayerArray[connectN].connect = get;
 }
 

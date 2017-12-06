@@ -21,7 +21,10 @@ public:
 	Player Get_Player(int);
 	Maze Get_Maze(int, int);
 	Ghost Get_Ghost(int);
+	bool Get_Connect(int);
 
+	void Set_Ghost(CGhost*, int);
+	void Set_Connect(bool, int);
 	void set_forpingpong(ForPingPong*);
 public:
 	CRecvFrom();

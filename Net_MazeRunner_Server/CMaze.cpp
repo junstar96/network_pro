@@ -19,6 +19,7 @@ float* CMaze::GetEdge(int EdgeWhat)
 
 void CMaze::SetEdge(float Edge, int EdgeWhat)
 {
+	m_fEdge[EdgeWhat] = Edge;
 }
 
 CMaze::CMaze()

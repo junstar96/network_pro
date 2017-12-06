@@ -2,32 +2,32 @@
 #include "CForServer.h"
 #include <iostream>
 #pragma warning(disable: 4996)   //for file open
-
+#include <iostream>
 
 void CForServer::Update_Ghost(void)
 {
- for (int i = 0; i < GHOSTMAX; ++i)
- {
- Position TempPos = *m_GhostArray[i].GetPosition();
- float fTempSpeed = *m_GhostArray[i].GetSpeed();
- float fTempAngle = *m_GhostArray[i].GetAngle();
+	for (int i = 0; i < GHOSTMAX; ++i)
+	{
+		Position TempPos = *m_GhostArray[i].GetPosition();
+		float fTempSpeed = *m_GhostArray[i].GetSpeed();
+		float fTempAngle = *m_GhostArray[i].GetAngle();
 
- TempPos.fX += fTempSpeed * sin(fTempAngle) * m_fElapsedTime;
- TempPos.fZ += fTempSpeed * -cos(fTempAngle) * m_fElapsedTime;
+		TempPos.fX += fTempSpeed * cos(fTempAngle * 3.141592f / 180.f) * m_fElapsedTime;
+		TempPos.fZ += fTempSpeed * sin(fTempAngle * 3.141592f / 180.f) * m_fElapsedTime;
 
- m_GhostArray[i].SetPosition(&TempPos);
- }
+		m_GhostArray[i].SetPosition(&TempPos);
+	}
 
- /*static float tempPrintCooltime = 0.f;
- tempPrintCooltime += m_fElapsedTime;
- if (tempPrintCooltime >= 1.f)
- {
- tempPrintCooltime = 0.f;
- for (int i = 0; i < GHOSTMAX; ++i)
- {
- std::cout << 1 << "번째 고스트: [" << m_GhostArray[0].GetPosition()->fX << " , " << m_GhostArray[0].GetPosition()->fZ << "]" << std::endl;
- }
- }*/
+	/*static float tempPrintCooltime = 0.f;
+	tempPrintCooltime += m_fElapsedTime;
+	if (tempPrintCooltime >= 1.f)
+	{
+	tempPrintCooltime = 0.f;
+	for (int i = 0; i < GHOSTMAX; ++i)
+	{
+	std::cout << 1 << "번째 고스트: [" << m_GhostArray[0].GetPosition()->fX << " , " << m_GhostArray[0].GetPosition()->fZ << "]" << std::endl;
+	}
+	}*/
 }
 
 void CForServer::Update_Angle(void)
@@ -68,25 +68,24 @@ bool CForServer::CollCheck_PlayerAndMaze(void)
 				float fplayerEdge[EDGE_END];
 				fplayerEdge[EDGE_Left] = fplayerpos.fX - fplayerSize;
 				fplayerEdge[EDGE_Right] = fplayerpos.fX + fplayerSize;
-				fplayerEdge[EDGE_Top] = fplayerpos.fY + fplayerSize;
-				fplayerEdge[EDGE_Bottom] = fplayerpos.fY - fplayerSize;
+				fplayerEdge[EDGE_Top] = fplayerpos.fZ + fplayerSize;
+				fplayerEdge[EDGE_Bottom] = fplayerpos.fZ - fplayerSize;
 
-				//충돌이 아닌 케이스
-				if (fplayerEdge[EDGE_Left] > *m_MazeArray[j][k].GetEdge(EDGE_Right))
-					break;
-				if (fplayerEdge[EDGE_Right] < *m_MazeArray[j][k].GetEdge(EDGE_Left))
-					break;
-				if (fplayerEdge[EDGE_Top] < *m_MazeArray[j][k].GetEdge(EDGE_Bottom))
-					break;
-				if (fplayerEdge[EDGE_Bottom] > *m_MazeArray[j][k].GetEdge(EDGE_Top))
-					break;
 
-				//충돌했다.
-				if (0)
-				{//충돌했을 때.. 스피드만큼만 밀어주면됨
-				 //반사.. //플레이어의 스피드 * 각도 + //도로 마이너스
-					int i = 0;
+				if (*m_MazeArray[j][k].GetStatus() == BLOCK_Wall)
+				{
+					//충돌일때
+					if (fplayerEdge[EDGE_Left] <= *m_MazeArray[j][k].GetEdge(EDGE_Right) &&
+						fplayerEdge[EDGE_Right] >= *m_MazeArray[j][k].GetEdge(EDGE_Left) &&
+						fplayerEdge[EDGE_Top] <= *m_MazeArray[j][k].GetEdge(EDGE_Bottom) &&
+						fplayerEdge[EDGE_Bottom] >= *m_MazeArray[j][k].GetEdge(EDGE_Top))
+					{
+						int i = 0;
+						printf("죽여..줘...");
+						//받아 온 플레이어 속도랑 방향만큼 밀어내 주기
+					}
 				}
+
 			}
 		}
 	}
@@ -107,6 +106,8 @@ bool CForServer::CollCheck_PlayerAndGhost(void)
 			if (fDis <= *m_PlayerArray[i]->GetSize() / 2.f + *m_GhostArray[j].GetSize() / 2.f)
 			{//충돌했을 때
 			 //재리스폰 처리 -> 위치 바꾸기
+
+				m_PlayerArray[i]->SetPosition(&Position(1, 50, 1));
 				std::cout << "충돌!" << std::endl;
 			}
 		}
@@ -125,14 +126,14 @@ void CForServer::SetPlayer(Player PlayerInfo, int PlayerN)
 	m_PlayerArray[PlayerN]->SetAngle(&PlayerInfo.fAngle);
 	m_PlayerArray[PlayerN]->SetDeltaAngle(&PlayerInfo.fDeltaAngle);
 	//printf("%f \n", m_PlayerArray[PlayerN]->GetPosition()->fX);
-	
+
 }
 
 void CForServer::SetMaze(Maze MazeInfo, int X, int Y)
 {
 	for (int i = 0; i < EDGE_END; ++i)
 	{
-		m_MazeArray[X][Y].SetEdge(MazeInfo.fEdge[i],i);
+		m_MazeArray[X][Y].SetEdge(MazeInfo.fEdge[i], i);
 	}
 	m_MazeArray[X][Y].SetStatus(&MazeInfo.iStatus);
 }
@@ -214,10 +215,12 @@ CForServer::CForServer()
 
 	////플레이어
 	//for (int i = 0; i < PLAYERMAX; ++i)
-	//	m_PlayerArray[i] = NULL;
+	//   m_PlayerArray[i] = NULL;
 
 	CPlayer* tempPlayer = new CPlayer();
-	tempPlayer->SetPosition(&Position(0, 0, 0));
+	tempPlayer->SetPosition(&Position(0.f, 0.f, 0.f));
+	float temp = 1.1f;
+	tempPlayer->SetSize(&temp);
 	m_PlayerArray[0] = tempPlayer;
 	m_PlayerArray[1] = tempPlayer;
 	m_PlayerArray[2] = tempPlayer;
@@ -232,7 +235,7 @@ CForServer::CForServer()
 		m_GhostArray[i].SetSize(&temp);
 		temp = 10.f*(i + 1);
 		m_GhostArray[i].SetAngle(&temp);
-		temp = 0.05f;
+		temp = 10.f;
 		m_GhostArray[i].SetSpeed(&temp);
 	}
 
@@ -245,3 +248,4 @@ CForServer::CForServer()
 CForServer::~CForServer()
 {
 }
+
