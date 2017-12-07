@@ -16,8 +16,9 @@ bool CSendTo::SendPlayerInfo(SOCKET& sock)
 			err_quit("server send()");
 			return false;
 		}
+		
 	}
-	
+	//printf("send %f %f\n",S_Server_Data.PlayerArray[0].Pos.fX, S_Server_Data.PlayerArray[0].Pos.fZ);
 	return true;
 }
 
@@ -81,11 +82,6 @@ CSendTo::CSendTo()
 {
 	for (int i = 0; i < PLAYERMAX; ++i)
 	{
-		S_Server_Data.PlayerArray[i].Pos.fX = 0.0f;
-		S_Server_Data.PlayerArray[i].Pos.fY = 3.0f;
-		S_Server_Data.PlayerArray[i].Pos.fZ = 0.0f;
-		S_Server_Data.PlayerArray[i].fAngle = 0;
-		S_Server_Data.PlayerArray[i].fDeltaAngle = 0;
 		S_Server_Data.PlayerArray[i].iMyTeam = 1;
 		S_Server_Data.PlayerArray[i].uiSerialNum = 1;
 		S_Server_Data.PlayerArray[i].connect = false;
@@ -118,9 +114,11 @@ void CSendTo::Set_Player(CPlayer* Playerinfo, int PlayerN)
 {
 	S_Server_Data.PlayerArray[PlayerN].fAngle = *Playerinfo->GetAngle();
 	S_Server_Data.PlayerArray[PlayerN].fDeltaAngle = *Playerinfo->GetDeltaAngle();
-	S_Server_Data.PlayerArray[PlayerN].uiSerialNum = *Playerinfo->GetSerialNum();
+	//S_Server_Data.
+	//Array[PlayerN].uiSerialNum = *Playerinfo->GetSerialNum();
 	S_Server_Data.PlayerArray[PlayerN].Pos = *Playerinfo->GetPosition();
-	printf("send set 값 %f\n", S_Server_Data.PlayerArray[PlayerN].Pos.fX);
+	printf("업글이 보내는 값 : %f  ", Playerinfo->GetPosition()->fX);
+	printf("%d 번째 send가 받는 값 : %f\n",PlayerN, S_Server_Data.PlayerArray[PlayerN].Pos.fX);
 }
 
 void CSendTo::Set_Maze(CMaze* Mazeinfo, int X, int Y)
@@ -142,7 +140,14 @@ void CSendTo::Set_Ghost(CGhost* GhostInfo, int GhostN)
 
 void CSendTo::Set_Connect(bool get, int connectN)
 {
+	S_Server_Data.PlayerArray[connectN].Pos.fX = 20.0f * (connectN + 1);
+	S_Server_Data.PlayerArray[connectN].Pos.fY = 3.0f;
+	S_Server_Data.PlayerArray[connectN].Pos.fZ = 20.0f * (connectN + 1);
+	S_Server_Data.PlayerArray[connectN].fAngle = 0;
+	S_Server_Data.PlayerArray[connectN].fDeltaAngle = 0;
 	S_Server_Data.PlayerArray[connectN].connect = get;
+	S_Server_Data.PlayerArray[connectN].uiSerialNum = connectN + 1;
+	S_Server_Data.PlayerArray[connectN].iMyTeam = (connectN + 1) % 2; //0 팀과 1팀으로 나누는 것이 좋을 것 같다.
 }
 
 bool CSendTo::Get_Connect(int connectN)

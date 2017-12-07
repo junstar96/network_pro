@@ -2,7 +2,7 @@
 #include "stdafx.h"
 #include "GetNetwork.h"
 
-#define SERVERIP   "127.0.0.1"
+#define SERVERIP   "192.168.40.16"
 #define SERVERPORT 9000
 #define BUFSIZE 2048
 #define BUFSIZE2 128

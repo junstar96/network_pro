@@ -54,6 +54,8 @@ bool CForServer::CollCheck_PlayerAndMaze(void)
 {
 	for (int i = 0; i < PLAYERMAX; ++i)
 	{
+		printf("벽과 충돌할 때 값 %f", m_PlayerArray[i]->GetPosition()->fX);
+
 		if (m_PlayerArray[i] == NULL)
 			break;
 
@@ -125,8 +127,9 @@ void CForServer::SetPlayer(Player PlayerInfo, int PlayerN)
 	m_PlayerArray[PlayerN]->SetSerialNum(&PlayerInfo.uiSerialNum);
 	m_PlayerArray[PlayerN]->SetAngle(&PlayerInfo.fAngle);
 	m_PlayerArray[PlayerN]->SetDeltaAngle(&PlayerInfo.fDeltaAngle);
-	//printf("%f \n", m_PlayerArray[PlayerN]->GetPosition()->fX);
-
+	m_PlayerArray[PlayerN]->SetPosition(&PlayerInfo.Pos);
+	printf("업글에 정보 넣어줄 때 받은 값 : %f \n", m_PlayerArray[PlayerN]->GetPosition()->fX);
+	
 }
 
 void CForServer::SetMaze(Maze MazeInfo, int X, int Y)
@@ -168,6 +171,8 @@ CGhost* CForServer::GetGhost(int GhostN)
 
 void CForServer::UpdatingAll(void)
 {
+	printf("0번 업데이트 시 값 : %f\n", m_PlayerArray[0]->GetPosition()->fX);
+
 	Update_Ghost();
 	Update_Angle();
 

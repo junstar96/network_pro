@@ -8,8 +8,7 @@
 SOCKET sock; // 소켓
 char buf[BUFSIZE2 + 1]; // 데이터 송수신 버퍼
 ForPingPong S_Get_Data;
-int iteam = 0;
-int mynum = 0;
+int my_number = 0;
 
 HANDLE hWrite_Event, hRead_Event;
 
@@ -101,17 +100,21 @@ DWORD WINAPI Network(LPVOID arg) {
 
 		for (int i = 0; i < PLAYERMAX; ++i)
 		{
-			S_Get_Data.PlayerArray[i].Pos.fX = player.Camera_x;
-			S_Get_Data.PlayerArray[i].Pos.fY = player.Camera_y;
-			S_Get_Data.PlayerArray[i].Pos.fZ = player.Camera_z;
+			if (i + 1 == my_number)
+			{
+				S_Get_Data.PlayerArray[i].Pos.fX = player.Camera_x;
+				S_Get_Data.PlayerArray[i].Pos.fY = player.Camera_y;
+				S_Get_Data.PlayerArray[i].Pos.fZ = player.Camera_z;
+			}
 
+			printf("send %d번째 값 : %f, %f\n", i, S_Get_Data.PlayerArray[i].Pos.fX, S_Get_Data.PlayerArray[i].Pos.fZ);
 			retval = send(sock, (char*)&S_Get_Data.PlayerArray[i],
 				sizeof(S_Get_Data.PlayerArray[i]), 0);
 			if (retval == SOCKET_ERROR)
 				err_quit("player send()");
 
-			printf("[Main]OtherPlayer[].Camera_x %f", S_Get_Data.PlayerArray[0].Pos.fX);
-			printf("\n");
+			//printf("[Main]OtherPlayer[].Camera_x %f", S_Get_Data.PlayerArray[1].Pos.fX);
+			//printf("\n");
 		}
 
 		for (int i = 0; i < B_SIZE; ++i)
@@ -157,6 +160,9 @@ DWORD WINAPI Network(LPVOID arg) {
 			if (retval == SOCKET_ERROR)
 				err_quit("player recvn()");
 
+			
+			printf("recv x값 : %f z값 : %f\n", S_Get_Data.PlayerArray[i].Pos.fX, S_Get_Data.PlayerArray[i].Pos.fZ);
+			
 			/*player.Camera_x = S_Get_Data.PlayerArray[i].Pos.fX;
 			player.Camera_y = S_Get_Data.PlayerArray[i].Pos.fY;
 			player.Camera_z = S_Get_Data.PlayerArray[i].Pos.fZ;*/
@@ -167,19 +173,27 @@ DWORD WINAPI Network(LPVOID arg) {
 			//printf("\n");
 		}
 
-		for (int i = 0; i < PLAYERMAX; ++i)
+
+		if (my_number == 0)
 		{
-			if (S_Get_Data.PlayerArray[i].uiSerialNum == 0 && S_Get_Data.PlayerArray[i].connect == false && iteam == 0)
+			for (int i = 0; i < PLAYERMAX; ++i)
 			{
-				S_Get_Data.PlayerArray[i].uiSerialNum = i + 1;
-				S_Get_Data.PlayerArray[i].connect = true;
-				S_Get_Data.PlayerArray[i].iMyTeam = (S_Get_Data.PlayerArray[i].uiSerialNum % 2);
-				mynum = S_Get_Data.PlayerArray[i].uiSerialNum;
-				iteam = S_Get_Data.PlayerArray[i].iMyTeam;
-				break;
+				if (i < PLAYERMAX - 1)
+				{
+					if (S_Get_Data.PlayerArray[i + 1].connect == false)
+					{
+						my_number = S_Get_Data.PlayerArray[i].uiSerialNum;
+						break;
+					}
+				}
+				else
+				{
+					my_number = S_Get_Data.PlayerArray[i].uiSerialNum;
+				}
 			}
+			
 		}
-		
+
 
 		//for (int i = 0; i < B_SIZE; ++i)
 		//{

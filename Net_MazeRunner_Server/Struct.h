@@ -49,5 +49,4 @@ struct ForPingPong {
 	Ghost	GhostArray[GHOSTMAX];
 
 	int		iLightRotation;
-	
 };

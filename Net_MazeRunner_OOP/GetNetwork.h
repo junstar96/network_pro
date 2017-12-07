@@ -38,5 +38,4 @@ struct ForPingPong {
 	Ghost_Net	GhostArray[GHOSTMAX];
 
 	int iLightRotation;
-	int connect_num;
 };
