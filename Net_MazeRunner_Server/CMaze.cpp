@@ -2,14 +2,14 @@
 #include "CMaze.h"
 
 
-int * CMaze::GetStatus(void)
+int CMaze::GetStatus(void)
 {
-	return &m_iStatus;
+	return m_iStatus;
 }
 
-void CMaze::SetStatus(int * Status)
+void CMaze::SetStatus(int  Status)
 {
-	m_iStatus = *Status;
+	m_iStatus = Status;
 }
 
 float* CMaze::GetEdge(int EdgeWhat)
@@ -20,6 +20,16 @@ float* CMaze::GetEdge(int EdgeWhat)
 void CMaze::SetEdge(float Edge, int EdgeWhat)
 {
 	m_fEdge[EdgeWhat] = Edge;
+}
+
+bool CMaze::Getbitem()
+{
+	return bitem;
+}
+
+void CMaze::Setbitem(bool item)
+{
+	bitem = item;
 }
 
 CMaze::CMaze()

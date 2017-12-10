@@ -5,9 +5,12 @@ class OtherPlayer
 public:
 	float Camera_x, Camera_y, Camera_z;
 	int PlayerID;
+	float fAngle;
+	float fdeltaAngle;
 public:
 	OtherPlayer();
 	~OtherPlayer();
 
-	void Render(float pos_x, float pos_y, float pos_z);
+	void Render();
+	void SetPosition(float pos_x, float pos_y, float pos_z);
 };

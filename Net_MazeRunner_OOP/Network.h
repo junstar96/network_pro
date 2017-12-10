@@ -2,7 +2,7 @@
 #include "stdafx.h"
 #include "GetNetwork.h"
 
-#define SERVERIP   "192.168.40.16"
+#define SERVERIP   "127.0.0.1"
 #define SERVERPORT 9000
 #define BUFSIZE 2048
 #define BUFSIZE2 128
@@ -14,8 +14,7 @@ extern HANDLE hWrite_Event, hRead_Event, Update_Event;
 
 DWORD WINAPI Network(LPVOID arg);
 DWORD WINAPI SendThread(LPVOID arg);
-DWORD WINAPI RecvThread(LPVOID arg);
-void network();
+DWORD WINAPI RecvThread(LPVOID arg); 
 
 // 대화상자 프로시저
 void err_quit(char *msg);

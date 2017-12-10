@@ -178,8 +178,13 @@ void RenderSceneALL()
 			//cout << "[" <<	i << "]	" << Ghosts[i].pos_x << endl;
 		}
 	}
-	for (int i = 0; i < 10; ++i) {
-		Ghosts[i].Render();
+	else {
+		for (int i = 0; i < 10; ++i) {
+			Ghosts[i].Render();
+		}
+		for (int i = 0; i < 3; ++i) {
+			others[i].Render();
+		}
 	}
 }
 
@@ -193,7 +198,7 @@ void RenderSceneW1() {
 	
 	if (Level_HP != 0)
 	{
-		gluLookAt(player.Camera_x, player.Camera_y, player.Camera_z,
+		gluLookAt(player.Camera_x, player.Camera_y , player.Camera_z,
 			player.Camera_x + lx, player.Camera_y + ly, player.Camera_z + lz,
 			0.0f, 1.0f, 0.0f);
 	}
@@ -203,6 +208,10 @@ void RenderSceneW1() {
 			player.Camera_x + lx, player.Camera_y + ly, player.Camera_z + lz,
 			0.0f, 1.0f, 0.0f);
 	}
+
+	//printf("camera_x = %f\n", player.Camera_x);
+	//printf("camera_y = %f\n", player.Camera_y);
+	//printf("camera_z = %f\n\n", player.Camera_z);
 
 	if (deltaAngle)
 	{
@@ -246,7 +255,7 @@ void RenderSceneW1() {
 						MazeBoard[i][j] = 4;
 					}
 				}
-				if (MazeBoard[i][j] == 1) // 벽 부딪치면 게임 out6
+ 				if (MazeBoard[i][j] == 1) // 벽 부딪치면 게임 out6
 				{
 					collision(Collision_Maze[i][j], i, j);
 				}

@@ -5,6 +5,7 @@
 
 #include "Ghost.h"
 #include "Player.h"
+#include "OtherPlayer.h"
 
 
 #include <iostream>
@@ -88,8 +89,12 @@ extern int cutoff;
 
 extern Ghost Ghosts[10];
 extern CPlayer player;
+extern OtherPlayer others[4];
 
 extern int MazeBoard[B_SIZE][B_SIZE];
+
+extern int iNetItem;
+extern int iNetItemMax;
 
 ///////////////////////////////////////////////////////////
 //                 Camera & Window                       //

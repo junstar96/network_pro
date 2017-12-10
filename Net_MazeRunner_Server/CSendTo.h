@@ -14,6 +14,11 @@ public:
 	void get_maze(int i, int j, int get_map)
 	{
 		S_Server_Data.MazeArray[i][j].iStatus = get_map;
+	}// 이거 왜만든거??
+
+	Maze Get_Maze(int X, int Y)
+	{
+		return S_Server_Data.MazeArray[X][Y];
 	}
 	
 	

@@ -3,6 +3,7 @@
 #include "resource.h"
 #include "Network.h"
 #include "Player.h"
+#include "Light.h"
 
 //////////////////////////////////////
 //			Input.cpp				//
@@ -74,7 +75,9 @@ void Keyboard(unsigned char key, int xx, int yy)
 			}
 		}
 	}
-
+	if (key == 'z') {
+		Bool_Sun = true;
+	}
 	if (key == '1')
 	{
 		LargeView();

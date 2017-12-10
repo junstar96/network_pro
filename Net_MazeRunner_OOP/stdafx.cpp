@@ -64,6 +64,11 @@ int cutoff = 10;
 int MazeBoard[B_SIZE][B_SIZE] = { 0 };
 Ghost Ghosts[10];
 CPlayer player;
+OtherPlayer others[4];
+
+int iNetItem = 0;
+int iNetItemMax = 0;
+
 ///////////////////////////////////////////////////////////
 //                 Camera & Window                       //
 ///////////////////////////////////////////////////////////

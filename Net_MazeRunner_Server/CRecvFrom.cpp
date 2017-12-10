@@ -10,18 +10,12 @@ bool CRecvFrom::RecvPlayerInfo(SOCKET& sock)
 		retval = recvn(sock, (char*)&S_Server_Data.PlayerArray[i],
 			sizeof(S_Server_Data.PlayerArray[i]), 0);
 
-		// cplayer 클래스의 경우, for server에는 null /null / null / null
-		// new cplayer () 를 해서 소속을 정해주고 하는 과정이..없지않나?
-		//음...
-
 		if (retval == SOCKET_ERROR)
 		{
 			err_quit("server recvn()");
 			return false;
 		}
-		
 	}
-	//printf("recv %f %f\n", S_Server_Data.PlayerArray[0].Pos.fX, S_Server_Data.PlayerArray[0].Pos.fZ);
 	return true;
 }
 
@@ -35,12 +29,15 @@ bool CRecvFrom::RecvMapInfo(SOCKET& sock)
 			retval = recvn(sock, (char*)&S_Server_Data.MazeArray[i][j],
 				sizeof(S_Server_Data.MazeArray[i][j]), 0);
 
+			//printf("%d ", S_Server_Data.MazeArray[i][j].bitem);
+
 			if (retval == SOCKET_ERROR)
 			{
 				err_quit("server recvn()");
 				return false;
 			}
 		}
+		//printf("\n"); // 여기서는 1이 찍혀....?!
 	}
 	return true;
 }
@@ -134,5 +131,15 @@ void CRecvFrom::Set_Connect(bool get, int connectN)
 	S_Server_Data.PlayerArray[connectN].connect = get;
 	S_Server_Data.PlayerArray[connectN].uiSerialNum = connectN + 1;
 	S_Server_Data.PlayerArray[connectN].iMyTeam = (connectN + 1) % 2; //0 팀과 1팀으로 나누는 것이 좋을 것 같다.
+}
+
+void CRecvFrom::Set_Maze(CMaze* Mazeinfo, int X, int Y)
+{
+	for (int i = 0; i < EDGE_END; ++i)
+	{
+		S_Server_Data.MazeArray[X][Y].fEdge[i] = *Mazeinfo->GetEdge(i);
+	}
+	S_Server_Data.MazeArray[X][Y].iStatus = Mazeinfo->GetStatus();
+	S_Server_Data.MazeArray[X][Y].bitem = Mazeinfo->Getbitem();
 }
 

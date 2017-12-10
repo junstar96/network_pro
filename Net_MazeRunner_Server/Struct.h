@@ -14,13 +14,15 @@ struct Position{
 
 //player
 struct Player {
-	unsigned int	uiSerialNum;	//고유번호
-	int				iMyTeam;		//팀 소속
+	unsigned int   uiSerialNum;   //고유번호
+	int            iMyTeam;      //팀 소속
 	bool            connect;
-	Position		Pos;			//위치값
-	float			fAngle;			//회전각도
-	float			fDeltaAngle;		//조작에따른각도
-	//Position	Vector;	//보류
+	Position      Pos;         //위치값
+	float         fAngle;         //회전각도
+	float         fDeltaAngle;      //조작에따른각도
+
+	float         fSpeed;         //플레이어 속도
+								  //Position   Vector;   //보류
 };
 
 //map
@@ -28,6 +30,7 @@ struct Maze
 {
 	int			iStatus;			//ENUM값으로 블럭의 속성을 나타냄
 	float		fEdge[EDGE_END];	//중앙값 +- 작업 진행...
+	bool		bitem = false;
 };
 // example
 // Maze MyMaze[B_SIZE][B_SIZE]
@@ -48,5 +51,7 @@ struct ForPingPong {
 	Maze	MazeArray[B_SIZE][B_SIZE];
 	Ghost	GhostArray[GHOSTMAX];
 
+	bool bgetitem;
+	int		iplayernum;
 	int		iLightRotation;
 };

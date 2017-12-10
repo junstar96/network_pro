@@ -7,7 +7,7 @@
 class CForServer
 {
 private:   //멤버변수
-   CPlayer* m_PlayerArray[PLAYERMAX];
+   CPlayer m_PlayerArray[PLAYERMAX];
    CMaze   m_MazeArray[B_SIZE][B_SIZE];
    CGhost   m_GhostArray[GHOSTMAX];
 
@@ -28,7 +28,7 @@ public:
    CMaze* GetMaze(int X, int Y);
    CGhost* GetGhost(int GhostN);
 
-private://업데이트 & 충돌체크
+public://업데이트 & 충돌체크
    void Update_Ghost(void);
    void Update_Angle(void);
 

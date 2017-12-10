@@ -3,13 +3,9 @@
 #include "stdafx.h"
 #include "Ghost.h"
 #include "Collision.h"
-#include "Network.h"
 
 void TimerFunction(int value)
 {
-	
-
-
 	obj_rot += 2;
 	if (obj_rot > 10000)
 	{
@@ -57,5 +53,5 @@ void TimerFunction(int value)
 	}
 
 	glutPostRedisplay();   // 화면 재 출력 
-	glutTimerFunc(timef, TimerFunction, 30); // 타이머함수 재 설정
+	glutTimerFunc(timef, TimerFunction, 60); // 타이머함수 재 설정
 } // 시간

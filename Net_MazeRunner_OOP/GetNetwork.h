@@ -10,6 +10,7 @@ struct GetPlayer_Net {
 	Position		Pos;			//위치값
 	float			fAngle;			//회전각도
 	float			fDeltaAngle;		//조작에따른각도
+	float			fspeed;
 										//Position	Vector;	//보류
 };
 
@@ -18,6 +19,7 @@ struct Maze_Net
 {
 	int			iStatus;			//ENUM값으로 블럭의 속성을 나타냄
 	float		fEdge[EDGE_END];	//중앙값 +- 작업 진행...
+	bool		bitem = false;
 };
 // example
 // Maze MyMaze[B_SIZE][B_SIZE]
@@ -37,5 +39,8 @@ struct ForPingPong {
 	Maze_Net	MazeArray[B_SIZE][B_SIZE];
 	Ghost_Net	GhostArray[GHOSTMAX];
 
+	bool bgetitem;
+	int iplayernum;
 	int iLightRotation;
+	int connect_num;
 };

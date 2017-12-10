@@ -23,6 +23,7 @@ public:
 	Ghost Get_Ghost(int);
 	bool Get_Connect(int);
 
+	void Set_Maze(CMaze*, int x, int y);
 	void Set_Ghost(CGhost*, int);
 	void Set_Connect(bool, int);
 	void set_forpingpong(ForPingPong*);

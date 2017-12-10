@@ -1,7 +1,7 @@
 #pragma once
 class CGameObject
 {
-private:	//멤버변수
+protected:	//멤버변수
 	Position	m_Pos;
 	float		m_fAngle;			//회전각도
 	float       m_fSize;

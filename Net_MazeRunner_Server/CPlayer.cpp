@@ -9,7 +9,7 @@ unsigned int * CPlayer::GetSerialNum(void)
 
 void CPlayer::SetSerialNum(unsigned int * SerialNum)
 {
-	m_uiSerialNum = * SerialNum;
+	m_uiSerialNum = *SerialNum;
 }
 
 int * CPlayer::GetMyTeam(void)
@@ -32,8 +32,19 @@ void CPlayer::SetDeltaAngle(float * DeltaAngle)
 	m_fDeltaAngle = *DeltaAngle;
 }
 
+float * CPlayer::GetSpeed(void)
+{
+	return &m_fSpeed;
+}
+
+void CPlayer::SetSpeed(float Speed)
+{
+	m_fSpeed = Speed;
+}
+
 CPlayer::CPlayer()
 {
+	m_fSize = 0.1;
 }
 
 
