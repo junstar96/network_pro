@@ -20,9 +20,11 @@ struct Player {
 	Position      Pos;         //위치값
 	float         fAngle;         //회전각도
 	float         fDeltaAngle;      //조작에따른각도
-
 	float         fSpeed;         //플레이어 속도
+	int			  ikey;
+
 								  //Position   Vector;   //보류
+	float		bColl = false;			//충돌체크
 };
 
 //map
@@ -30,7 +32,8 @@ struct Maze
 {
 	int			iStatus;			//ENUM값으로 블럭의 속성을 나타냄
 	float		fEdge[EDGE_END];	//중앙값 +- 작업 진행...
-	bool		bitem = false;
+	bool		bitem[5];
+	bool		bGoal[5];
 };
 // example
 // Maze MyMaze[B_SIZE][B_SIZE]
@@ -42,6 +45,8 @@ struct Ghost
 {
 	Position		Pos;
 	float			fAngle;
+
+	int			iCollision;
 };
 
 //illuminate			30번

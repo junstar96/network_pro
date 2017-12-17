@@ -8,6 +8,7 @@ protected:	//¸â¹öº¯¼ö
 public:		//Get & Set
 	Position*	GetPosition(void);
 	void		SetPosition(Position* pos);
+	void		SetPosition2(Position pos);
 
 	float*      GetSize(void);
 	void      SetSize(float* Size);

@@ -27,6 +27,8 @@ public:
 	void Set_Ghost(CGhost*, int);
 	void Set_Connect(bool, int);
 	void set_forpingpong(ForPingPong*);
+
+	void Set_Player(CPlayer* Playerinfo, int PlayerN);
 public:
 	CRecvFrom();
 	~CRecvFrom();

@@ -42,6 +42,24 @@ void CPlayer::SetSpeed(float Speed)
 	m_fSpeed = Speed;
 }
 
+bool CPlayer::GetColli(void)
+{
+	return m_bCollCheck;
+}
+
+void CPlayer::SetColli(bool Coll)
+{
+	m_bCollCheck = Coll;
+}
+
+void CPlayer::SetKey(int *key) {
+	ikey = *key;
+}
+
+int* CPlayer::GetKey() {
+	return &ikey;
+}
+
 CPlayer::CPlayer()
 {
 	m_fSize = 0.1;

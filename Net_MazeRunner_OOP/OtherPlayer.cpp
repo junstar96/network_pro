@@ -24,64 +24,17 @@ void OtherPlayer::Render() {
 	{
 		glTranslatef(Camera_x, Camera_y, Camera_z-3);
 		glRotatef(180 - (fAngle + fdeltaAngle)*180.0 / 3.14, 0.0, 1.0, 0.0);
-		glColor3f(1, 8, 1);
-		glScalef(0.4, 0.45, 0.4);
-		glutWireSphere(3,10,10);
+		glScalef(0.8, 0.4, 0.8);
 
-		//glBegin(GL_QUADS);
-		//{
-		//	//À­¸é
-		//	glColor3f(0.0f, 0.0f, 1.0f);// Blue
-		//	glVertex3f(1, 1, 1);
-		//	glColor3f(0.0f, 1.0f, 0.0f);// Green
-		//	glVertex3f(1, 1, -1);
-		//	glColor3f(1.0f, 0.0f, 0.0f);// Red
-		//	glVertex3f(-1, 1, -1);
-		//	glColor3f(1.0f, 1.0f, 0.0f);// Yellow
-		//	glVertex3f(-1.0, 1.0, 1.0f);
-
-		//	//µÞ¸é
-		//	glColor3f(0.0f, 1.0f, 0.0f);// Green
-		//	glVertex3f(1, 1, -1);
-		//	glColor3f(0.0f, 0.0f, 0.0f);// Black
-		//	glVertex3f(1, -1, -1);
-		//	glColor3f(1.0f, 1.0f, 1.0f);// White
-		//	glVertex3f(-1, -1, -1);
-		//	glColor3f(1.0f, 0.0f, 0.0f);// Red
-		//	glVertex3f(-1, 1, -1);
-
-		//	//¾Æ·§¸é
-		//	glColor3f(1.0f, 0.0, 1.0f);// Magenta
-		//	glVertex3f(-1, -1, 1);
-		//	glColor3f(1.0f, 1.0f, 1.0f);// White
-		//	glVertex3f(-1, -1, -1);
-		//	glColor3f(0.0f, 0.0f, 0.0f);// Black
-		//	glVertex3f(1, -1, -1);
-		//	glColor3f(0.0f, 1.0f, 1.0f);// Cyan
-		//	glVertex3f(1, -1, 1);
-
-		//	//¿Þ¸é
-		//	glColor3f(1.0f, 0.0f, 0.0f);// Red
-		//	glVertex3f(-1, 1, -1);
-		//	glColor3f(1.0f, 1.0f, 1.0f);// White
-		//	glVertex3f(-1, -1, -1);
-		//	glColor3f(1.0f, 0.0, 1.0f);// Magenta
-		//	glVertex3f(-1, -1, 1);
-		//	glColor3f(1.0f, 1.0f, 0.0f);// Yellow
-		//	glVertex3f(-1.0, 1.0, 1.0f);
-
-		//	//¿À¸¥¸é
-
-		//	glColor3f(0.0f, 0.0f, 1.0f);// Blue
-		//	glVertex3f(1, 1, 1);
-		//	glColor3f(0.0f, 1.0f, 1.0f);// Cyan
-		//	glVertex3f(1, -1, 1);
-		//	glColor3f(0.0f, 0.0f, 0.0f);// Black
-		//	glVertex3f(1, -1, -1);
-		//	glColor3f(0.0f, 1.0f, 0.0f);// Green
-		//	glVertex3f(1, 1, -1);
-		//}
-		//glEnd();
+		glTranslatef(0, -1.5, 0);
+		glColor3f(0.8, 0.8, 0.8);
+		glutWireSphere(0.4, 20, 20);
+		glTranslatef(0, 0.8, 0);
+		glColor3f(0.3, 0.3, 0.3);
+		glutSolidSphere(0.8, 25, 25);
+		glColor3f(0.8, 0.8, 0.8);
+		glTranslatef(0, 0.8, 0);
+		glutWireSphere(0.4, 20, 20);
 
 		glLineWidth(2);
 		glColor3f(0.5, 0.5, 0.5);

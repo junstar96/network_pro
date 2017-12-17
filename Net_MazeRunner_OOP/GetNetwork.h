@@ -19,7 +19,8 @@ struct Maze_Net
 {
 	int			iStatus;			//ENUM값으로 블럭의 속성을 나타냄
 	float		fEdge[EDGE_END];	//중앙값 +- 작업 진행...
-	bool		bitem = false;
+	bool		bitem[5];
+	bool		bGoal[5];
 };
 // example
 // Maze MyMaze[B_SIZE][B_SIZE]
@@ -31,6 +32,8 @@ struct Ghost_Net
 {
 	Position		Pos;
 	float			fAngle;
+
+	int          iCollision;
 };
 
 #pragma pack(1)

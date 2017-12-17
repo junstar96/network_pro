@@ -99,9 +99,11 @@ DWORD WINAPI Network(LPVOID arg) {
 	if (retval == SOCKET_ERROR)
 		err_quit("player recvn()");
 
-	printf("[mynum] : %d\n", S_Get_Data.iplayernum);
+	
+	("[mynum] : %d\n", S_Get_Data.iplayernum);
 	player.PlayerID = S_Get_Data.iplayernum;
 	player.SetPosition(); // ID에 맞는 초기 포지션을 받아.
+	printf("%d", player.PlayerID);
 	int wcnt = 0;
 	while (1)
 	{
@@ -125,7 +127,7 @@ DWORD WINAPI Network(LPVOID arg) {
 				//printf("player[%d] z -[], %f\n\n", i, S_Get_Data.PlayerArray[i].Pos.fZ); // 내정보는 잘 갔다 오고 있음.
 			}
 			else { // 다른 어레이들은 others[3]에 하나씩 좌표 넣어준다. 
-				//others[i].SetPosition(S_Get_Data.PlayerArray[i].Pos.fX, S_Get_Data.PlayerArray[i].Pos.fY, S_Get_Data.PlayerArray[i].Pos.fZ);
+				others[i].SetPosition(S_Get_Data.PlayerArray[i].Pos.fX, S_Get_Data.PlayerArray[i].Pos.fY, S_Get_Data.PlayerArray[i].Pos.fZ);
 				//printf("Other[%d] x -[], %f\n", i, S_Get_Data.PlayerArray[i].Pos.fX);
 				//printf("Other[%d] y -[], %f\n", i, S_Get_Data.PlayerArray[i].Pos.fY);
 				//printf("Other[%d] z -[], %f\n\n", i, S_Get_Data.PlayerArray[i].Pos.fZ);
@@ -142,12 +144,13 @@ DWORD WINAPI Network(LPVOID arg) {
 					err_quit("maze recvn()");
 
 				MazeBoard[i][j] = S_Get_Data.MazeArray[i][j].iStatus; // 맵 수정
-				if (S_Get_Data.MazeArray[i][j].bitem == true) {
+				if (S_Get_Data.MazeArray[i][j].bitem[player.PlayerID] == true) {
 					iNetItem++; // 아이템을 먹었다는 것을 받으면 카운트 증가
 					if (iNetItem > iNetItemMax) {
 						srand((unsigned)time(NULL));
 
 						item_rand = rand() % 5;
+						PlaySound(TEXT(SOUND_FILE_NAME), NULL, SND_ASYNC | SND_ALIAS);
 						switch (item_rand)
 						{
 						case ItemState::KEY:
@@ -171,9 +174,36 @@ DWORD WINAPI Network(LPVOID arg) {
 						iNetItemMax = iNetItem;
 					}// item 먹은 숫자가 더 많아지면 갱신
 				}
+				if (S_Get_Data.MazeArray[i][j].bGoal[player.PlayerID] == true) {
+					PlaySound(TEXT(SOUND_FILE_NAME_FINISH), NULL, SND_ASYNC | SND_ALIAS);
+					system("pause"); // 도착했을 때 어떻게 구현할 것인가
+				}
 			}
 		} // 맵 전송받기 완료
 		iNetItem = 0;
+
+		//충돌체크 만들고...
+		//camera & MazeBoard[i][j]
+		for (int i = 0; i < 4; ++i)
+		{
+			for (int j = 0; j < B_SIZE; ++j)
+			{//렉트충돌체크
+				for (int k = 0; k < B_SIZE; ++k)
+				{//Position pos = Position(i * 1.1 - 15, 0, j * 1.1 - 15);
+					if (MazeBoard[j][k] == 1 || MazeBoard[j][k] == 5)
+					{
+						if (player.Camera_x - 0.1f <= j * 1.1 - 15 + 0.5 &&
+							player.Camera_x + 0.1f >= j * 1.1 - 15 - 0.5 &&
+							player.Camera_z + 0.1f >= k * 1.1 - 15 + 3 - 0.5&&
+							player.Camera_z - 0.1f <= k * 1.1 - 15 + 3 + 0.5)
+						{
+							player.Camera_x -= 1 * sin(angle);   //1부분에 플레이어 스피드 삽입
+							player.Camera_z -= 1 * -cos(angle);   //1부분에 플레이어 스피드 삽입
+						}
+					}
+				}
+			}
+		}
 
 		//player.Camera_y+=wcnt;
 		for (int i = 0; i < GHOSTMAX; ++i)
@@ -187,8 +217,43 @@ DWORD WINAPI Network(LPVOID arg) {
 			Ghosts[i].pos_x = S_Get_Data.GhostArray[i].Pos.fX;
 			Ghosts[i].pos_y = S_Get_Data.GhostArray[i].Pos.fY;
 			Ghosts[i].pos_z = S_Get_Data.GhostArray[i].Pos.fZ;
+
+			printf("%d \n", S_Get_Data.GhostArray[i].iCollision);
+			if (S_Get_Data.GhostArray[i].iCollision == player.PlayerID && S_Get_Data.GhostArray[i].iCollision != 999)
+			{
+				printf("%d == %d\n", S_Get_Data.GhostArray[i].iCollision, player.PlayerID);
+				printf("바꿈 \n");
+				//Position Pos = Position(0.f, 0.f, 0.f);
+				int iRandX, iRandY = 0.f;
+
+				if (player.PlayerID % 2 == TEAM_Red)
+				{
+					iRandX = rand() % 1 + 1; // 1 or 2
+				}
+				else if (player.PlayerID % 2 == TEAM_Blue)
+				{
+					iRandX = rand() % 1 + 27;   // 27 or 28
+				}
+				else
+					break;
+
+				if (iRandX == 0)
+				{
+					printf("잘못된 값!\n");
+					break;
+				}
+				iRandY = rand() % 27 + 1; //   1 ~ 28 사이의 값
+
+										  //Position pos = Position(i * 1.1 - 15, 0, j * 1.1 - 15);
+				player.Camera_x = iRandX * 1.1 - 15;
+				player.Camera_z = iRandY * 1.1 - 15;
+			}
+
 		} // 고스트 좌표 더미로 넘어옴
 		//wcnt++;
+
+		
+
 		//player.Camera_y += wcnt;
 		// 플레이어 좌표 보내주는 부분.
 		

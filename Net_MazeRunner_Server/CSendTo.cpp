@@ -55,7 +55,7 @@ bool CSendTo::SendGhostInfo(SOCKET& sock)
 	{
 		retval = send(sock, (char*)&S_Server_Data.GhostArray[i],
 			sizeof(S_Server_Data.GhostArray[i]), 0);
-
+		//printf("고스트 x값%d \n", S_Server_Data.GhostArray[i].Pos.fX);
 		if (retval == SOCKET_ERROR)
 		{
 			err_quit("server send()");
@@ -90,6 +90,7 @@ CSendTo::CSendTo()
 		S_Server_Data.PlayerArray[i].fDeltaAngle = 0;
 		S_Server_Data.PlayerArray[i].iMyTeam = 1;
 		S_Server_Data.PlayerArray[i].uiSerialNum = 1;
+		S_Server_Data.PlayerArray[i].ikey = 0;
 		S_Server_Data.PlayerArray[i].connect = false;
 	}
 
@@ -121,12 +122,15 @@ void CSendTo::Set_Player(CPlayer* Playerinfo, int PlayerN)
 	S_Server_Data.PlayerArray[PlayerN].fAngle = *Playerinfo->GetAngle();
 	S_Server_Data.PlayerArray[PlayerN].fDeltaAngle = *Playerinfo->GetDeltaAngle();
 	S_Server_Data.PlayerArray[PlayerN].Pos = *Playerinfo->GetPosition();
+	S_Server_Data.PlayerArray[PlayerN].bColl = Playerinfo->GetColli();
+	S_Server_Data.PlayerArray[PlayerN].ikey = *Playerinfo->GetKey();
 }
 
 void CSendTo::Set_Ghost(CGhost* GhostInfo, int GhostN)
 {
 	S_Server_Data.GhostArray[GhostN].Pos = *GhostInfo->GetPosition();
 	S_Server_Data.GhostArray[GhostN].fAngle = *GhostInfo->GetAngle();
+	S_Server_Data.GhostArray[GhostN].iCollision = GhostInfo->GetCollision();
 }
 
 void CSendTo::Set_Connect(bool get, int connectN)
@@ -148,5 +152,9 @@ void CSendTo::Set_Maze(CMaze* Mazeinfo, int X, int Y)
 		S_Server_Data.MazeArray[X][Y].fEdge[i] = *Mazeinfo->GetEdge(i);
 	}
 	S_Server_Data.MazeArray[X][Y].iStatus = Mazeinfo->GetStatus();
-	S_Server_Data.MazeArray[X][Y].bitem = Mazeinfo->Getbitem();
+
+	for (int i = 0; i < 5; ++i) {
+		S_Server_Data.MazeArray[X][Y].bitem[i] = Mazeinfo->Getbitem(i);
+		S_Server_Data.MazeArray[X][Y].bGoal[i] = Mazeinfo->GetbGoal(i);
+	}
 }

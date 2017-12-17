@@ -22,14 +22,24 @@ void CMaze::SetEdge(float Edge, int EdgeWhat)
 	m_fEdge[EdgeWhat] = Edge;
 }
 
-bool CMaze::Getbitem()
+bool CMaze::Getbitem(int i)
 {
-	return bitem;
+	return bitem[i];
 }
 
-void CMaze::Setbitem(bool item)
+void CMaze::Setbitem(bool item, int i)
 {
-	bitem = item;
+	bitem[i] = item;
+}
+
+bool CMaze::GetbGoal(int i)
+{
+	return bGoal[i];
+}
+
+void CMaze::SetbGoal(bool Goal, int i)
+{
+	bGoal[i] = Goal;
 }
 
 CMaze::CMaze()

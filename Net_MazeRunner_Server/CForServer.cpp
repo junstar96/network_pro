@@ -14,7 +14,7 @@ void CForServer::Update_Ghost(void)
 
 		TempPos.fX += fTempSpeed * cos(fTempAngle * 3.141592f / 180.f) * m_fElapsedTime;
 		TempPos.fZ += fTempSpeed * sin(fTempAngle * 3.141592f / 180.f) * m_fElapsedTime;
-
+		
 		m_GhostArray[i].SetPosition(&TempPos);
 	}
 }
@@ -41,6 +41,7 @@ void CForServer::CollisionCheck(void)
 
 bool CForServer::CollCheck_PlayerAndMaze(void)
 {
+
 	for (int i = 0; i < PLAYERMAX; ++i)
 	{
 		for (int j = 0; j < B_SIZE; ++j)
@@ -62,25 +63,36 @@ bool CForServer::CollCheck_PlayerAndMaze(void)
 					fplayerEdge[EDGE_Top] >= m_MazeArray[j][k].GetPosition()->fZ + 3 - 0.5&&
 					fplayerEdge[EDGE_Bottom] <= m_MazeArray[j][k].GetPosition()->fZ + 3 + 0.5)
 				{
-					////받아 온 플레이어 속도랑 방향만큼 밀어내 주기
-					//float fPlayerAngle = 10.f;//*m_PlayerArray[i].GetAngle();
-					//float fPlayerSpeed = 1.f;//*m_PlayerArray[i].GetSpeed();
-					//fplayerpos.fX -= fPlayerSpeed * cos(fPlayerAngle * 3.141592f / 180.f);
-					//fplayerpos.fZ -= fPlayerSpeed * sin(fPlayerAngle * 3.141592f / 180.f);
 					if (m_MazeArray[j][k].GetStatus() == 1) // 벽과 충돌 했을 때
 					{
 						if (fplayerpos.fX != 0) {
-							printf("☆★충돌★☆[%d, %d]pos: %f <= %f	[%d]\n", j, k, fplayerpos.fX, m_MazeArray[j][k].GetPosition()->fX, m_MazeArray[j][k].GetStatus());
+							printf("☆★충돌★☆[%d, %d]pos: %f <= %f   [%d]\n", j, k, fplayerpos.fX, m_MazeArray[j][k].GetPosition()->fX, m_MazeArray[j][k].GetStatus());
 						}
 					}
 					if (m_MazeArray[j][k].GetStatus() == 2) // 아이템과 충돌 했을 때
 					{
-						printf("☆★아이템★☆[%d, %d]pos: %f <= %f	[%d]\n", j, k, fplayerpos.fX, m_MazeArray[j][k].GetPosition()->fX, m_MazeArray[j][k].GetStatus());
-						
+						printf("☆★아이템★☆[%d, %d]pos: %f <= %f   [%d]\n", j, k, fplayerpos.fX, m_MazeArray[j][k].GetPosition()->fX,
+							m_MazeArray[j][k].GetStatus());
+
 						m_MazeArray[j][k].SetStatus(0); // 충돌하면 그 위치 0으로
-						m_MazeArray[j][k].Setbitem(true);
+						m_MazeArray[j][k].Setbitem(true, i + 1);
+					}
+					else if (m_MazeArray[j][k].GetStatus() == 3) {
+						if (*m_PlayerArray[i].GetKey() >= 3) {
+							printf("☆★도 착★☆[%d, %d]pos: %f <= %f   [%d]\n", j, k, fplayerpos.fX, m_MazeArray[j][k].GetPosition()->fX, m_MazeArray[j][k].GetStatus());
+							m_MazeArray[j][k].SetbGoal(true, i + 1);
+							m_MazeArray[j][k].SetStatus(0);
+						}
+						else {
+							printf("key가 더 필요합니다.\n");
+						}
 					}
 				}
+				else
+					m_PlayerArray[i].SetColli(false);
+
+				if (m_PlayerArray[i].GetColli() && i == 1)
+					printf("값 : %d \n", m_PlayerArray[i].GetColli());
 			}
 		}
 		//printf("%d\n", temp);
@@ -90,42 +102,38 @@ bool CForServer::CollCheck_PlayerAndMaze(void)
 
 bool CForServer::CollCheck_PlayerAndGhost(void)
 {
+	int tempColli[GHOSTMAX] = { 999 ,999 ,999 ,999 ,999 ,999 ,999 ,999, 999, 999 };
 	for (int i = 0; i < PLAYERMAX; ++i)
 	{
 		for (int j = 0; j < GHOSTMAX; ++j)
 		{//원충돌체크
-			float fDisX = m_PlayerArray[i].GetPosition()->fX - m_GhostArray[j].GetPosition()->fX;
-			float fDisZ = m_PlayerArray[i].GetPosition()->fZ - m_GhostArray[j].GetPosition()->fZ;
+			float fDisX = m_PlayerArray[i].GetPosition()->fX - (m_GhostArray[j].GetPosition()->fX);
+			/*if (i == 1)
+				printf("fDisX: %f", fDisX);*/
+			float fDisZ = m_PlayerArray[i].GetPosition()->fZ - (m_GhostArray[j].GetPosition()->fZ + 3);
+			/*if (i == 1)
+				printf("fDisZ: %f\n", fDisZ);*/
+
 			float fDis = sqrtf(fDisX * fDisX + fDisZ * fDisZ);
-			if (fDis <= *m_PlayerArray[i].GetSize() / 2.f + *m_GhostArray[j].GetSize() / 2.f)
+			if (fDis <= 0.2f / 2.f + *m_GhostArray[j].GetSize() / 2.f)
 			{//충돌했을 때
 			 //재리스폰 처리 -> 위치 바꾸기 // 30 * 30
-				Position Pos = Position(0.f, 0.f, 0.f);
-				int iRandX, iRandY = 0.f;
-
-				if (*m_PlayerArray[i].GetMyTeam() == TEAM_Red)
-				{
-					iRandX = rand() % 1 + 1; // 1 or 2
-				}
-				else if (*m_PlayerArray[i].GetMyTeam() == TEAM_Blue)
-				{
-					iRandX = rand() % 1 + 27;   // 27 or 28
-				}
-				else
-					break;
-
-				if (iRandX == 0)
-				{
-					printf("잘못된 값!\n");
-					break;
-				}
-				iRandY = rand() % 27 + 1; //   1 ~ 28 사이의 값
-
-				m_PlayerArray[i].SetPosition(m_MazeArray[iRandX][iRandY].GetPosition());
-				printf("[벽에 충돌했습니다.]\n");
+				tempColli[j] = *m_PlayerArray[i].GetSerialNum();
+				if (i == 1)
+					printf("충돌 %d \n", m_GhostArray[j].GetCollision());
 			}
 		}
 	}
+	for (int j = 0; j < GHOSTMAX; ++j)
+	{
+		m_GhostArray[j].SetCollision(tempColli[j]);
+		if (m_GhostArray[j].GetCollision() != 999)
+		{
+			printf("고스트 충돌 %d\n", m_GhostArray[j].GetCollision());
+		}
+	}
+
+	//
 	return false;
 }
 
@@ -143,6 +151,8 @@ void CForServer::SetPlayer(Player PlayerInfo, int PlayerN)
 	m_PlayerArray[PlayerN].SetSerialNum(&PlayerInfo.uiSerialNum);
 	m_PlayerArray[PlayerN].SetAngle(&PlayerInfo.fAngle);
 	m_PlayerArray[PlayerN].SetDeltaAngle(&PlayerInfo.fDeltaAngle);
+	m_PlayerArray[PlayerN].SetColli(&PlayerInfo.bColl);
+	m_PlayerArray[PlayerN].SetKey(&PlayerInfo.ikey);
 }
 
 void CForServer::SetMaze(Maze MazeInfo, int X, int Y)
@@ -158,6 +168,7 @@ void CForServer::SetGhost(Ghost GhostInfo, int GhostN)
 {
 	m_GhostArray[GhostN].SetPosition(&GhostInfo.Pos);
 	m_GhostArray[GhostN].SetAngle(&GhostInfo.fAngle);
+	m_GhostArray[GhostN].SetCollision(GhostInfo.iCollision);
 }
 
 CPlayer* CForServer::GetPlayer(int PlayerN)
@@ -198,7 +209,7 @@ CForServer::CForServer()
 	//맵
 	FILE *fp;
 
-	fp = fopen("MAP_NET.txt", "rt"); // NET_MAP / MAP_TEST
+	fp = fopen("MapMain.txt", "rt"); // NET_MAP / MAP_TEST
 
 	if (fp == NULL)
 	{
@@ -237,7 +248,7 @@ CForServer::CForServer()
 		float temp = 1.f;
 		m_GhostArray[i].SetPosition(Pos);
 		m_GhostArray[i].SetSize(&temp);
-		temp = 10.f*(i + 1);
+		temp = 30.f*(i + 1);
 		m_GhostArray[i].SetAngle(&temp);
 		temp = 10.f;
 		m_GhostArray[i].SetSpeed(&temp);
