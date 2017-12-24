@@ -108,11 +108,11 @@
     <ClInclude Include="Network.h">
       <Filter>04.Network\Network</Filter>
     </ClInclude>
-    <ClInclude Include="SetNetwork.h">
-      <Filter>04.Network</Filter>
-    </ClInclude>
     <ClInclude Include="OtherPlayer.h">
       <Filter>02.GameObject\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="SetNetwork.h">
+      <Filter>04.Network</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -182,8 +182,18 @@ void RenderSceneALL()
 		for (int i = 0; i < 10; ++i) {
 			Ghosts[i].Render();
 		}
-		for (int i = 0; i < 3; ++i) {
-			others[i].Render();
+		for (int i = 0; i < 4; ++i) {
+			if (others[i].PlayerID != player.PlayerID && others[i].PlayerID <= 4)
+			{	//다른 플레이어 아이디랑 내 아이디랑 같으면 그건 그냥 나임 그니까 연산안함
+				//다른 플레이어 아이디의 값이 4보다 같거나 작을 때
+				//렌더
+				if (others[i].PlayerID % 2 == player.PlayerID % 2) {
+					others[i].Render_Color();
+				}
+				else {
+					others[i].Render();
+				}
+			}
 		}
 	}
 }

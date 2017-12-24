@@ -103,7 +103,7 @@ DWORD WINAPI Network(LPVOID arg) {
 	("[mynum] : %d\n", S_Get_Data.iplayernum);
 	player.PlayerID = S_Get_Data.iplayernum;
 	player.SetPosition(); // ID에 맞는 초기 포지션을 받아.
-	printf("%d", player.PlayerID);
+	printf("%d\n", player.PlayerID);
 	int wcnt = 0;
 	while (1)
 	{
@@ -120,8 +120,10 @@ DWORD WINAPI Network(LPVOID arg) {
 				sizeof(S_Get_Data.PlayerArray[i]), 0);
 			if (retval == SOCKET_ERROR)
 				err_quit("player recvn()");
+			
+			others[i].PlayerID = S_Get_Data.PlayerArray[i].uiSerialNum;
 
-			if (player.PlayerID == i) { // 내 어레이 정보를 적용시킬 필요 없음
+			if (player.PlayerID == i + 1) { // 내 어레이 정보를 적용시킬 필요 없음
 				//printf("player[%d] x -[], %f\n", i, S_Get_Data.PlayerArray[i].Pos.fX);
 				//printf("player[%d] y -[], %f\n", i, S_Get_Data.PlayerArray[i].Pos.fY);
 				//printf("player[%d] z -[], %f\n\n", i, S_Get_Data.PlayerArray[i].Pos.fZ); // 내정보는 잘 갔다 오고 있음.
@@ -145,6 +147,7 @@ DWORD WINAPI Network(LPVOID arg) {
 
 				MazeBoard[i][j] = S_Get_Data.MazeArray[i][j].iStatus; // 맵 수정
 				if (S_Get_Data.MazeArray[i][j].bitem[player.PlayerID] == true) {
+					
 					iNetItem++; // 아이템을 먹었다는 것을 받으면 카운트 증가
 					if (iNetItem > iNetItemMax) {
 						srand((unsigned)time(NULL));
@@ -174,9 +177,12 @@ DWORD WINAPI Network(LPVOID arg) {
 						iNetItemMax = iNetItem;
 					}// item 먹은 숫자가 더 많아지면 갱신
 				}
+				
 				if (S_Get_Data.MazeArray[i][j].bGoal[player.PlayerID] == true) {
 					PlaySound(TEXT(SOUND_FILE_NAME_FINISH), NULL, SND_ASYNC | SND_ALIAS);
-					system("pause"); // 도착했을 때 어떻게 구현할 것인가
+					printf("게임에서 승리하셨습니다.\n");
+					Level_HP = 0;
+					startinit();
 				}
 			}
 		} // 맵 전송받기 완료
@@ -197,11 +203,31 @@ DWORD WINAPI Network(LPVOID arg) {
 							player.Camera_z + 0.1f >= k * 1.1 - 15 + 3 - 0.5&&
 							player.Camera_z - 0.1f <= k * 1.1 - 15 + 3 + 0.5)
 						{
-							player.Camera_x -= 1 * sin(angle);   //1부분에 플레이어 스피드 삽입
-							player.Camera_z -= 1 * -cos(angle);   //1부분에 플레이어 스피드 삽입
+							player.Camera_x -= 1 * sin(angle);	//1부분에 플레이어 스피드 삽입
+							player.Camera_z -= 1 * -cos(angle);	//1부분에 플레이어 스피드 삽입
 						}
 					}
 				}
+			}
+		}
+
+		if ((-15 > player.Camera_x || player.Camera_x > 29 * 1.1 - 15) ||
+			(-15 > player.Camera_z || player.Camera_z > 29 * 1.1 - 15))
+		{//Position pos = Position(i * 1.1 - 15, 0, j * 1.1 - 15);
+			switch (player.PlayerID)
+			{ //Position pos = Position(i * 1.1 - 15, 0, j * 1.1 - 15);
+			case 1:   // red
+				player.Camera_x = 1.1f*1.5f - 15.f, player.Camera_y = 1.75f, player.Camera_z = 1.1f*10.f - 15.f; // 기본0,5,1.75
+				break;
+			case 2: //blue
+				player.Camera_x = 1.1f*27.f - 15.0f, player.Camera_y = 1.75f, player.Camera_z = 1.1f*4.f - 15.f; // 기본0,5,1.75
+				break;
+			case 3:   //red
+				player.Camera_x = 1.1*2.f - 15.f, player.Camera_y = 1.75f, player.Camera_z = 1.1*3.4f - 15.f; // 기본0,5,1.75
+				break;
+			case 4: //blue
+				player.Camera_x = 1.1f*28.f - 15.f, player.Camera_y = 1.75f, player.Camera_z = 1.1*8.f - 15.f; // 기본0,5,1.75
+				break;
 			}
 		}
 
@@ -218,11 +244,8 @@ DWORD WINAPI Network(LPVOID arg) {
 			Ghosts[i].pos_y = S_Get_Data.GhostArray[i].Pos.fY;
 			Ghosts[i].pos_z = S_Get_Data.GhostArray[i].Pos.fZ;
 
-			printf("%d \n", S_Get_Data.GhostArray[i].iCollision);
-			if (S_Get_Data.GhostArray[i].iCollision == player.PlayerID && S_Get_Data.GhostArray[i].iCollision != 999)
+			if (S_Get_Data.GhostArray[i].iCollsion == player.PlayerID && S_Get_Data.GhostArray[i].iCollsion != 999)
 			{
-				printf("%d == %d\n", S_Get_Data.GhostArray[i].iCollision, player.PlayerID);
-				printf("바꿈 \n");
 				//Position Pos = Position(0.f, 0.f, 0.f);
 				int iRandX, iRandY = 0.f;
 
@@ -249,23 +272,22 @@ DWORD WINAPI Network(LPVOID arg) {
 				player.Camera_z = iRandY * 1.1 - 15;
 			}
 
+
 		} // 고스트 좌표 더미로 넘어옴
 		//wcnt++;
-
-		
-
 		//player.Camera_y += wcnt;
 		// 플레이어 좌표 보내주는 부분.
 		
 		for (int i = 0; i < PLAYERMAX; ++i)
 		{
-			if (S_Get_Data.iplayernum == i) {
+			if (S_Get_Data.iplayernum == i + 1) {
 				S_Get_Data.PlayerArray[i].fAngle = angle;
 				S_Get_Data.PlayerArray[i].fDeltaAngle = deltaAngle;
 				S_Get_Data.PlayerArray[i].fspeed = speedup;
 				S_Get_Data.PlayerArray[i].Pos.fX = player.Camera_x;
 				S_Get_Data.PlayerArray[i].Pos.fY = player.Camera_y;
 				S_Get_Data.PlayerArray[i].Pos.fZ = player.Camera_z;
+				S_Get_Data.PlayerArray[i].ikey = Level_Key;
 			} // 내정보만 갱신 시켜서 보내준다.
 
 			retval = send(sock, (char*)&S_Get_Data.PlayerArray[i],

@@ -12,5 +12,6 @@ public:
 	~OtherPlayer();
 
 	void Render();
+	void Render_Color();
 	void SetPosition(float pos_x, float pos_y, float pos_z);
 };

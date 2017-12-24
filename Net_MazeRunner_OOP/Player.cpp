@@ -8,7 +8,7 @@ CPlayer::CPlayer()
 	Camera_x = 0;
 	Camera_y = 0;
 	Camera_z = 0;
-	PlayerID = rand()%3;
+	PlayerID = 999;	// 0 1 2 << 
 }
 
 
@@ -17,18 +17,18 @@ CPlayer::~CPlayer()
 }
 
 void CPlayer::SetPosition() {
-	switch (PlayerID) {
-	case 0:
-		Camera_x = 20.0f, Camera_z = -3.5f, Camera_y = 1.75f; // 기본0,5,1.75
+	switch (PlayerID) { //Position pos = Position(i * 1.1 - 15, 0, j * 1.1 - 15);
+	case 1:   // red
+		Camera_x = 1.1f - 15.f, Camera_y = 1.75f, Camera_z = 1.1f*3.4f - 15.f; // 기본0,5,1.75
 		break;
-	case 1:
-		Camera_x = -18.0f, Camera_z = -3.5f, Camera_y = 1.75f; // 기본0,5,1.75
+	case 2: //blue
+		Camera_x = 1.1f*27.f - 15.0f, Camera_y = 1.75f, Camera_z = 1.1f*4.f - 15.f; // 기본0,5,1.75
 		break;
-	case 2:
-		Camera_x = 0.5f, Camera_z = 17.0f, Camera_y = 1.75f; // 기본0,5,1.75
+	case 3:   //red
+		Camera_x = 1.1*2.f - 15.f, Camera_y = 1.75f, Camera_z = 1.1*3.4f - 15.f; // 기본0,5,1.75
 		break;
-	case 3:
-		Camera_x = 0.5f, Camera_z = -21.0f, Camera_y = 1.75f; // 기본0,5,1.75
+	case 4: //blue
+		Camera_x = 1.1f*28.f - 15.f, Camera_y = 1.75f, Camera_z = 1.1*8.f - 15.f; // 기본0,5,1.75
 		break;
 	}
 }

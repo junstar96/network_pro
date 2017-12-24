@@ -11,7 +11,9 @@ struct GetPlayer_Net {
 	float			fAngle;			//회전각도
 	float			fDeltaAngle;		//조작에따른각도
 	float			fspeed;
+	int				ikey;
 										//Position	Vector;	//보류
+	float		bColl = false;			//충돌체크
 };
 
 //map
@@ -33,7 +35,7 @@ struct Ghost_Net
 	Position		Pos;
 	float			fAngle;
 
-	int          iCollision;
+	int			iCollsion;
 };
 
 #pragma pack(1)

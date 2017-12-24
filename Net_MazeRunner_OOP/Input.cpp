@@ -131,8 +131,6 @@ void SpecialKeyboard(int key, int xx, int yy)
 		}
 	}
 
-	
-
 	glutSetWindow(mainWindow);
 	glutPostRedisplay();
 }
